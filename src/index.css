@@ -1,0 +1,129 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+@import "tailwindcss";
+:root {
+    font-family: 'Poppins', system-ui, Avenir, Helvetica, Arial, sans-serif;
+    line-height: 1.5;
+    font-weight: 400;
+    /* color-scheme: light dark; */
+    /* color: rgba(255, 255, 255, 0.87); */
+    /* background-color: #242424; */
+    /* font-synthesis: none; */
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+body {
+    /* background-color: #f1faee; */
+    
+}
+.gradient {
+    background-image: linear-gradient(
+      330deg,
+      hsl(105deg 55% 96%) 0%,
+      hsl(120deg 53% 93%) 8%,
+      hsl(131deg 50% 89%) 15%,
+      hsl(143deg 47% 86%) 22%,
+      hsl(157deg 46% 83%) 29%,
+      hsl(170deg 45% 79%) 36%,
+      hsl(182deg 43% 76%) 43%,
+      hsl(187deg 44% 67%) 51%,
+      hsl(194deg 45% 58%) 59%,
+      hsl(199deg 46% 49%) 67%,
+      hsl(204deg 48% 40%) 77%,
+      hsl(210deg 49% 32%) 87%,
+      hsl(215deg 50% 23%) 100%
+    );
+  }
+
+.signin-container {
+    background-color: #ffffff;
+}
+
+.signin-btn {
+    background-color: #4361ee;
+}
+
+.or-txt {
+    width: 100%; 
+    text-align: center; 
+    border-bottom: 1px solid #000; 
+    line-height: 0.1em;
+    margin: 10px 0 20px; 
+ } 
+ 
+ .or-txt span { 
+     background:#fff; 
+     padding:0 10px; 
+ }
+
+/* 
+.form-input {
+    border: 1px solid #8f8d8d;
+
+ } */
+a {
+    font-weight: 500;
+    /* color: #646cff; */
+    /* text-decoration: inherit; */
+}
+
+
+/* a:hover { */
+
+
+/* color: #535bf2; */
+
+
+/* } */
+
+
+/* body {
+    margin: 0;
+    display: flex;
+    place-items: center;
+    min-width: 320px;
+    min-height: 100vh;
+} */
+
+
+/* h1 {
+    font-size: 3.2em;
+    line-height: 1.1;
+} */
+
+
+/* 
+button {
+    border-radius: 8px;
+    border: 1px solid transparent;
+    padding: 0.6em 1.2em;
+    font-size: 1em;
+    font-weight: 500;
+    font-family: inherit;
+    background-color: #1a1a1a;
+    cursor: pointer;
+    transition: border-color 0.25s;
+}
+
+button:hover {
+    border-color: #646cff;
+}
+
+button:focus,
+button:focus-visible {
+    outline: 4px auto -webkit-focus-ring-color;
+} */
+
+
+/* @media (prefers-color-scheme: light) {
+     :root {
+        color: #213547;
+        background-color: #ffffff;
+    }
+    a:hover {
+        color: #747bff;
+    }
+    button {
+        background-color: #f9f9f9;
+    }
+} */
