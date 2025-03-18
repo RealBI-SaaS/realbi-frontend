@@ -1,21 +1,53 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom'
+import { UserProvider } from './context/UserContext'
 import Login from './components/login'
 import Home from './components/home'
 import Account from './components/account'
 import Logout from './components/logout'
 import './index.css'
+import { useUser } from './context/UserContext';
+
+
+// Protected Route component
+const ProtectedRoute = ({ children }) => {
+  const { user, loading } = useUser();
+  
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+  
+  if (!user) {
+    return <Navigate to="/login" />;
+  }
+  
+  return children;
+};
 
 function App() {
   return (
-    <Router>
-      <Routes>
-        <Route path="/login" element={<Login />} />
-        <Route path="/home" element={<Home />} />
-        <Route path="/" element={<Login />} />
-        <Route path="/account" element={<Account />} />
-        <Route path="/logout" element={<Logout />} />
-      </Routes>
-    </Router>
+    <UserProvider>
+      <Router>
+        <Routes>
+          <Route path="/login" element={<Login />} />
+          <Route 
+            path="/home" 
+            element={
+                <Home />
+            } 
+          />
+          <Route path="/" element={<Navigate to="/home" />} />
+          <Route 
+            path="/account" 
+            element={
+              <ProtectedRoute>
+                <Account />
+              </ProtectedRoute>
+            } 
+          />
+          <Route path="/logout" element={<Logout />} />
+        </Routes>
+      </Router>
+    </UserProvider>
   )
 }
 

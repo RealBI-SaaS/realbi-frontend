@@ -1,41 +1,86 @@
-import React, { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
+import React, { useEffect } from "react";
+import { useNavigate, useSearchParams } from "react-router-dom";
+import { useUser } from '../context/UserContext';
 
 const Home = () => {
-  const [userId, setUserId] = useState(null);
-  const location = useLocation();
+  const { user, loading, setUser } = useUser();
+  const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
 
   useEffect(() => {
-    // Get tokens from URL parameters
-    const params = new URLSearchParams(location.search);
-    const accessToken = params.get('access_token');
-    const refreshToken = params.get('refresh_token');
+    const handleTokenParams = async () => {
+      const accessToken = searchParams.get('access');
+      const refreshToken = searchParams.get('refresh');
 
-    if (accessToken) {
-      // Store tokens in localStorage or your preferred storage method
-      localStorage.setItem('access_token', accessToken);
-      localStorage.setItem('refresh_token', refreshToken);
-
-      // Make authenticated request with the access token
-      fetch("http://localhost:8000/auth/user", {
-        credentials: "include",
-        headers: {
-          'Authorization': `Bearer ${accessToken}`
+      if (accessToken && refreshToken) {
+        try {
+          // Store tokens in localStorage
+          localStorage.setItem('access_token', accessToken);
+          localStorage.setItem('refresh_token', refreshToken);
+          
+          // Fetch user data using the access token
+          const response = await fetch(`${import.meta.env.VITE_BASE_URL}/auth/user/`, {
+            headers: {
+              'Authorization': `Bearer ${accessToken}`
+            }
+          });
+          
+          if (response.ok) {
+            const userData = await response.json();
+            // Update user context directly
+            setUser(userData);
+          }
+        } catch (error) {
+          console.error('Error handling token parameters:', error);
         }
-      })
-        .then((res) => res.json())
-        .then((data) => setUserId(data.userId))
-        .catch((err) => console.error(err));
-    }
-  }, [location]);
+      }
+    };
+    console.log("searchParams")
+    console.log(searchParams)
+    handleTokenParams();
+  }, [searchParams, setUser]);
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
 
   return (
-    <div className="home-container">
-      <h1>Welcome to Our Analytics Platform</h1>
-      <div className="home-content">
-        <p>Your comprehensive analytics solution for data-driven decision making.</p>
-        {userId && <p>User ID: {userId}</p>}
-        <a href="/account" className="account-link">Go to Account</a>
+    <div className="home-container p-8">
+      <div className="max-w-4xl mx-auto">
+        <h1 className="text-3xl font-bold mb-6">Welcome to Our Analytics Platform</h1>
+        <div className="bg-white rounded-lg shadow-md p-6">
+          <div className="mb-6">
+            <h2 className="text-xl font-semibold mb-2">Welcome, {user?.first_name || 'User'}!</h2>
+            <p className="text-gray-600">Your comprehensive analytics solution for data-driven decision making.</p>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="bg-gray-50 p-4 rounded-lg">
+              <h3 className="font-semibold mb-2">Quick Stats</h3>
+              <p className="text-gray-600">Your analytics dashboard will appear here</p>
+            </div>
+            
+            <div className="bg-gray-50 p-4 rounded-lg">
+              <h3 className="font-semibold mb-2">Recent Activity</h3>
+              <p className="text-gray-600">Your recent activity will be shown here</p>
+            </div>
+          </div>
+
+          <div className="mt-6 flex gap-4">
+            <button
+              onClick={() => navigate('/account')}
+              className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition-colors"
+            >
+              Manage Account
+            </button>
+            <button
+              onClick={() => navigate('/logout')}
+              className="bg-red-600 text-white px-4 py-2 rounded-md hover:bg-red-700 transition-colors"
+            >
+              Logout
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   );

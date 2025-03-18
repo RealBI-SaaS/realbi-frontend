@@ -1,62 +1,46 @@
-import React, { useEffect, useState } from "react";
+import React from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useUser } from '../context/UserContext';
 
 const Account = () => {
-  const [userDetails, setUserDetails] = useState({
-    id: '',
-    email: '',
-    firstName: '',
-    lastName: '',
-    role: '',
-    isGoogleUser: false
-  });
+  const { user } = useUser();
+  const navigate = useNavigate();
 
-  useEffect(() => {
-    const accessToken = localStorage.getItem('access_token');
-    
-    if (accessToken) {
-      fetch("http://localhost:8000/auth/user", {
-        credentials: "include",
-        headers: {
-          'Authorization': `Bearer ${accessToken}`
-        }
-      })
-        .then((res) => res.json())
-        .then((data) => {
-            console.log(data);
-          setUserDetails(data);
-        })
-        .catch((err) => console.error(err));
-    }
-  }, []);
+  if (!user) {
+    return <div>Loading...</div>;
+  }
 
   return (
-    <div className="p-6 bg-white rounded-lg shadow-md">
-      <h1 className="text-2xl font-bold mb-6">Account Details</h1>
-      <div className="space-y-4">
+    <div className="p-4">
+      <h1 className="text-xl mb-4">Account Information</h1>
+      
+      <div className="space-y-2">
         <div>
-          <label className="font-medium">Email:</label>
-          <p>{userDetails.email}</p>
+          <span className="font-medium">User ID:</span> {user.userId}
         </div>
         <div>
-          <label className="font-medium">First Name:</label>
-          <p>{userDetails.firstName || 'Not set'}</p>
+          <span className="font-medium">Email:</span> {user.email}
         </div>
         <div>
-          <label className="font-medium">Last Name:</label>
-          <p>{userDetails.lastName || 'Not set'}</p>
+          <span className="font-medium">First Name:</span> {user.firstName}
         </div>
         <div>
-          <label className="font-medium">Role:</label>
-          <p className="capitalize">{userDetails.role}</p>
+          <span className="font-medium">Last Name:</span> {user.lastName}
         </div>
         <div>
-          <label className="font-medium">Account Type:</label>
-          <p>{userDetails.isGoogleUser ? 'Google Account' : 'Email Account'}</p>
+          <span className="font-medium">Role:</span> {user.role}
+        </div>
+        <div>
+          <span className="font-medium">Google User:</span> {user.isGoogleUser ? 'Yes' : 'No'}
         </div>
       </div>
-      <a href="/home" className="account-link">Go to Home</a>
-      <a href="/logout" className="account-link">Logout</a>
 
+      <button
+        onClick={() => navigate('/home')}
+        className="mt-4 px-3 py-1 bg-gray-100 rounded"
+      >
+        Back to Home
+      </button>
     </div>
   );
 };

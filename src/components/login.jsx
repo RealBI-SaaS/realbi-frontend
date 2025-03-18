@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { FcGoogle } from "react-icons/fc";
-import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+import { useUser } from '../context/UserContext';
 
 const Login = () => {
   const [isSignUp, setIsSignUp] = useState(false);
@@ -13,6 +14,8 @@ const Login = () => {
 
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
+  const { login, signup } = useUser();
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -28,35 +31,16 @@ const Login = () => {
     setLoading(true);
 
     try {
-      const endpoint = isSignUp ? 'http://localhost:8000/auth/create-user/' : 'http://localhost:8000/auth/jwt/token/';
-      
-      const response = await axios.post(endpoint, 
-        {
-          email: formData.email,
-          password: formData.password,
-          ...(isSignUp && {
-            first_name: formData.first_name,
-            last_name: formData.last_name
-          })
-        },
-        {
-          headers: {
-            'Content-Type': 'application/json',
-            'X-CSRFToken': localStorage.getItem('latestCSRFToken') || ''
-          }
-        }
-      );
-      console.log(response);
-      if (response.data.access || response.data.access_token) {
-        localStorage.setItem('access_token', response.data.access_token || response.data.access);
-        localStorage.setItem('refresh_token', response.data.refresh_token || response.data.refresh);
-        window.location.href = '/home';
+      if (isSignUp) {
+        await signup(formData);
+        // After successful signup, login automatically
+        await login(formData.email, formData.password);
       } else {
-        setError('Invalid response from server');
+        await login(formData.email, formData.password);
       }
-
+      navigate('/home');
     } catch (err) {
-      setError(err.response?.data?.message || 'An error occurred during login');
+      setError(err.response?.data?.message || 'An error occurred during authentication');
     } finally {
       setLoading(false);
     }
@@ -64,13 +48,10 @@ const Login = () => {
 
   const handleGoogleSignIn = async () => {
     const client_id = import.meta.env.VITE_GOOGLE_CLIENT_ID;
-
-    // Create a CSRF token and store it locally
     const state = crypto.randomUUID(16).toString("hex");
     localStorage.setItem("latestCSRFToken", state);
-        
 
-    const redirectUri = 'http://localhost:8000/auth/google/oauth2/callback/';
+    const redirectUri = `${import.meta.env.VITE_BASE_URL}/auth/google/oauth2/callback/`;
     const scope = "email profile";
     
     const link = `https://accounts.google.com/o/oauth2/v2/auth?` +
@@ -82,7 +63,6 @@ const Login = () => {
       `&access_type=offline` +
       `&prompt=consent`;
 
-    // Redirect to Google OAuth
     window.location.href = link;
   };
 
@@ -151,7 +131,7 @@ const Login = () => {
             />
           </div>
           
-          {error && <p className="text-red-100 text-sm">{error}</p>}
+          {error && <p className="text-red-500 text-sm">{error}</p>}
           
           <button 
             type="submit" 
