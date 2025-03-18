@@ -27,10 +27,17 @@ const Login = () => {
     setLoading(true);
 
     try {
-      const response = await axios.post('/api/auth/login', formData);
+      const response = await axios.post('http://localhost:8000/auth/create-user/', formData);
+      console.log(response.data);
       // Handle successful login here (e.g., store token, redirect)
-      console.log('Login successful:', response.data);
+      localStorage.setItem('access_token', response.data.access_token);
+      localStorage.setItem('refresh_token', response.data.refresh_token);
+      console.log(';)');
+
+      window.location.href = '/home';
+
     } catch (err) {
+      // console.log(err);
       setError(err.response?.data?.message || 'An error occurred during login');
     } finally {
       setLoading(false);

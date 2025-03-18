@@ -53,6 +53,8 @@ const Account = () => {
           <p>{userDetails.is_google_user ? 'Google Account' : 'Email Account'}</p>
         </div>
       </div>
+      <a href="/home" className="account-link">Go to Home</a>
+
     </div>
   );
 };

@@ -35,6 +35,7 @@ const Home = () => {
       <div className="home-content">
         <p>Your comprehensive analytics solution for data-driven decision making.</p>
         {userId && <p>User ID: {userId}</p>}
+        <a href="/account" className="account-link">Go to Account</a>
       </div>
     </div>
   );
