@@ -4,10 +4,10 @@ const Account = () => {
   const [userDetails, setUserDetails] = useState({
     id: '',
     email: '',
-    first_name: '',
-    last_name: '',
+    firstName: '',
+    lastName: '',
     role: '',
-    is_google_user: false
+    isGoogleUser: false
   });
 
   useEffect(() => {
@@ -22,6 +22,7 @@ const Account = () => {
       })
         .then((res) => res.json())
         .then((data) => {
+            console.log(data);
           setUserDetails(data);
         })
         .catch((err) => console.error(err));
@@ -38,11 +39,11 @@ const Account = () => {
         </div>
         <div>
           <label className="font-medium">First Name:</label>
-          <p>{userDetails.first_name || 'Not set'}</p>
+          <p>{userDetails.firstName || 'Not set'}</p>
         </div>
         <div>
           <label className="font-medium">Last Name:</label>
-          <p>{userDetails.last_name || 'Not set'}</p>
+          <p>{userDetails.lastName || 'Not set'}</p>
         </div>
         <div>
           <label className="font-medium">Role:</label>
@@ -50,10 +51,11 @@ const Account = () => {
         </div>
         <div>
           <label className="font-medium">Account Type:</label>
-          <p>{userDetails.is_google_user ? 'Google Account' : 'Email Account'}</p>
+          <p>{userDetails.isGoogleUser ? 'Google Account' : 'Email Account'}</p>
         </div>
       </div>
       <a href="/home" className="account-link">Go to Home</a>
+      <a href="/logout" className="account-link">Logout</a>
 
     </div>
   );
