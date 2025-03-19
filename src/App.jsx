@@ -45,7 +45,7 @@ function App() {
             } 
           />
           <Route path="/logout" element={<Logout />} />
-          <Route path="/create-company" element={<CreateCompany />} />
+          <Route path="/create-company" element={<ProtectedRoute><CreateCompany /></ProtectedRoute>} />
         </Routes>
       </Router>
     </UserProvider>
