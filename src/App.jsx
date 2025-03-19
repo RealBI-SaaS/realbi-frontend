@@ -6,7 +6,7 @@ import Account from './components/account'
 import Logout from './components/logout'
 import './index.css'
 import { useUser } from './context/UserContext';
-
+import CreateCompany from './components/create_company';
 
 // Protected Route component
 const ProtectedRoute = ({ children }) => {
@@ -45,6 +45,7 @@ function App() {
             } 
           />
           <Route path="/logout" element={<Logout />} />
+          <Route path="/create-company" element={<CreateCompany />} />
         </Routes>
       </Router>
     </UserProvider>

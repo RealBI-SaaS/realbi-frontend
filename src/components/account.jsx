@@ -1,6 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useUser } from '../context/UserContext';
+import CompanyInfo from './CompanyInfo';
 
 const Account = () => {
   const { user } = useUser();
@@ -14,7 +15,7 @@ const Account = () => {
     <div className="p-4">
       <h1 className="text-xl mb-4">Account Information</h1>
       
-      <div className="space-y-2">
+      <div className="space-y-2 mb-8">
         <div>
           <span className="font-medium">User ID:</span> {user.userId}
         </div>
@@ -34,6 +35,8 @@ const Account = () => {
           <span className="font-medium">Google User:</span> {user.isGoogleUser ? 'Yes' : 'No'}
         </div>
       </div>
+
+      <CompanyInfo />
 
       <button
         onClick={() => navigate('/home')}
