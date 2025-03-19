@@ -1,12 +1,73 @@
-# React + Vite
+# Installation Guide
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Prerequisites
+- [Node.js](https://nodejs.org/) (v16 or higher)
+- npm or pnpm package manager
+- Git
 
-Currently, two official plugins are available:
+## Setup Steps
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+### 1. Clone the Repository
+```bash
+git clone https://github.com/your-username/analytics-saas.git
+cd analytics-saas/frontend/saas-frontend
+```
 
-## Expanding the ESLint configuration
+### 2. Install Dependencies
+```bash
+# Using npm
+npm install
 
-If you are developing a production application, we recommend using TypeScript and enable type-aware lint rules. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+# Or using pnpm
+pnpm install
+```
+
+### 3. Environment Setup
+1. Create a `.env` file in the root directory
+2. Copy the contents from `.env.example` 
+3. Update the environment variables with your values
+
+### 4. Start Development Server
+```bash
+# Using npm
+npm run dev
+
+# Or using pnpm
+pnpm dev
+```
+
+The application will be available at `http://localhost:5173` (or the port specified in your environment variables).
+
+## Available Scripts
+
+- `npm run dev` or `pnpm dev` - Start development server
+- `npm run build` or `pnpm build` - Build for production
+- `npm run start` or `pnpm start` - Start production server
+- `npm run lint` or `pnpm lint` - Run linting
+- `npm run test` or `pnpm test` - Run tests
+
+## Project Structure
+
+```
+saas-frontend/
+├── src/
+│   ├── components/     # Reusable UI components
+│   ├── pages/         # Page components
+│   ├── hooks/         # Custom React hooks
+│   ├── utils/         # Utility functions
+│   ├── styles/        # Global styles and theme
+│   └── types/         # TypeScript type definitions
+├── public/            # Static assets
+└── package.json       # Project dependencies and scripts
+```
+
+## Contributing
+
+1. Create a new branch for your feature
+2. Make your changes
+3. Submit a pull request
+
+
+
+
+

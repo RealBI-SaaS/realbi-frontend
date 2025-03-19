@@ -47,24 +47,13 @@ const Home = () => {
   return (
     <div className="home-container p-8">
       <div className="max-w-4xl mx-auto">
-        <h1 className="text-3xl font-bold mb-6">Welcome to Our Analytics Platform</h1>
         <div className="bg-white rounded-lg shadow-md p-6">
           <div className="mb-6">
-            <h2 className="text-xl font-semibold mb-2">Welcome, {user?.first_name || 'User'}!</h2>
+            <h2 className="text-xl font-semibold mb-2">Welcome, {user?.firstName || ''}!</h2>
             <p className="text-gray-600">Your comprehensive analytics solution for data-driven decision making.</p>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div className="bg-gray-50 p-4 rounded-lg">
-              <h3 className="font-semibold mb-2">Quick Stats</h3>
-              <p className="text-gray-600">Your analytics dashboard will appear here</p>
-            </div>
-            
-            <div className="bg-gray-50 p-4 rounded-lg">
-              <h3 className="font-semibold mb-2">Recent Activity</h3>
-              <p className="text-gray-600">Your recent activity will be shown here</p>
-            </div>
-          </div>
+         
 
           <div className="mt-6 flex gap-4">
             <button
