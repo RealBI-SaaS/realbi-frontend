@@ -102,7 +102,12 @@ export const UserProvider = ({ children }) => {
       setUser(userData);
       return userData;
     } catch (err) {
-      throw err;
+      if (err.response.data.detail) {
+        console.log('ccdsdfsdgf');
+        setError(err.response.data.detail);
+        throw err;
+
+      }
     }
   };
 
@@ -129,6 +134,7 @@ export const UserProvider = ({ children }) => {
       setUser, 
       loading, 
       error, 
+      setError,
       login, 
       signup, 
       logout,

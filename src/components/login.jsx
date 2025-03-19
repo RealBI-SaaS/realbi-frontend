@@ -12,7 +12,8 @@ const Login = () => {
     last_name: ''
   });
 
-  const [error, setError] = useState('');
+  // const [error, setError] = useState('');
+  const { error, setError } = useUser();
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const { login, signup } = useUser();
@@ -36,13 +37,16 @@ const Login = () => {
         // After successful signup, login automatically
 
         await login(formData.email, formData.password);
+        console.log('ccc')
         navigate('/create-company');
       } else {
         await login(formData.email, formData.password);
+        navigate('/home');
+
       }
-      navigate('/home');
     } catch (err) {
-      setError(err.response?.data?.message || 'An error occurred during authentication');
+      console.log(err);
+      // error message already set in context
     } finally {
       setLoading(false);
     }
