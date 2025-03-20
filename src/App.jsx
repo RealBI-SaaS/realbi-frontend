@@ -1,7 +1,7 @@
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom'
 import { UserProvider } from './context/UserContext'
 import Login from './components/login'
-import Home from './components/home'
+import Home from './components/Home'
 import Account from './components/account'
 import Logout from './components/logout'
 import './index.css'
