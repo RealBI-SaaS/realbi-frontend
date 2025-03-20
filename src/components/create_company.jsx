@@ -45,11 +45,12 @@ const CreateCompany = () => {
           placeholder="Company Name"
           value={companyName}
           onChange={(e) => setCompanyName(e.target.value)}
-          required
+          
         />
         <button type="submit">
           Finish
         </button>
+        <button onClick={() => navigate('/home')}>Skip</button>
       </form>
     </div>
   );
