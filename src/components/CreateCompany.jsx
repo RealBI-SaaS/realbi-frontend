@@ -25,7 +25,7 @@ const CreateCompany = () => {
       }
 
       const data = await response.json();
-      navigate('/home');
+      navigate('/account');
     } catch (error) {
       console.error('Error creating company:', error);
       // TODO: Handle error (e.g., show error message to user)
