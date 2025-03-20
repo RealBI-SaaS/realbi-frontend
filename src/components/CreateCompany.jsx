@@ -25,8 +25,6 @@ const CreateCompany = () => {
       }
 
       const data = await response.json();
-      console.log('Company created:', data);
-      // TODO: Handle successful company creation (e.g., redirect to dashboard)
       navigate('/home');
     } catch (error) {
       console.error('Error creating company:', error);
@@ -35,9 +33,9 @@ const CreateCompany = () => {
   };
 
   return (
-    <div>
+    <div className="flex flex-col items-start justify-center gap-4 bg-white rounded-sm p-5">
       <h1>Create Company</h1>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className="mt-0 pt-0">
         <input
           type="text"
           id="companyName"
@@ -45,13 +43,19 @@ const CreateCompany = () => {
           placeholder="Company Name"
           value={companyName}
           onChange={(e) => setCompanyName(e.target.value)}
+          className="border p-2 rounded-md"
           
         />
-        <button type="submit">
-          Finish
-        </button>
-        <button onClick={() => navigate('/home')}>Skip</button>
+        
       </form>
+      <div className="mt-3 flex gap-4 w-full">
+        <button onClick={handleSubmit} className="text-white bg-blue-100 px-4 py-2 rounded-md hover:bg-blue-200 transition-colors">
+          Finish
+          </button>
+        <button onClick={() => navigate('/account')} className="text-white bg-red-100 px-4 py-2 rounded-md hover:bg-red-200 transition-colors">
+          Skip
+        </button>
+      </div>
     </div>
   );
 };

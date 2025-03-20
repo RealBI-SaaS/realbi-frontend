@@ -1,5 +1,6 @@
 import React from 'react';
 import { Avatar } from 'antd';
+import { HomeOutlined } from '@ant-design/icons';
 import { useUser } from '../context/UserContext';
 import { useNavigate } from 'react-router-dom';
 
@@ -11,18 +12,20 @@ function Nav() {
     const navigate = useNavigate();
 
     return (   
-        <div className="nav  h-16 bg-white shadow-md flex items-center justify-between px-4">
-            <h1 onClick={() => navigate('/home')} className="text-xl font-semibold  h-full flex flex-col justify-center">HOME</h1>
-
-            <Avatar 
-                style={{ backgroundColor: '#7265e6', verticalAlign: 'middle' }} 
-                size="large"
-                onClick={() => navigate('/account')}
-                className="justify-self-end"
-            >
-                {userInitial}
-            </Avatar>
-        </div>
+        <nav className="fixed top-4 left-1/2 transform -translate-x-1/2 mb-10 w-full max-w-screen-lg px-4 py-2 mx-auto bg-white shadow-lg rounded-xl lg:px-8 lg:py-3 z-50">            <div className="container flex flex-wrap items-center justify-between mx-auto text-slate-800">
+                <button onClick={() => {navigate('/home')}} className="mr-4 block cursor-pointer py-1.5 text-base text-slate-800 font-semibold">
+                     <HomeOutlined className="text-lg"/> Home
+                </button>
+                    <Avatar 
+                    style={{ backgroundColor: '#7265e6', verticalAlign: 'middle' }} 
+                    size="large"
+                    onClick={() => navigate('/account')}
+                    className="cursor-pointer"
+                >
+                    {userInitial}
+                </Avatar>
+           </div>
+        </nav>
     )
 }
 

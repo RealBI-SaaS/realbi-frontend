@@ -1,13 +1,13 @@
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom'
 import { UserProvider } from './context/UserContext'
 import Login from './components/login'
-import Home from './components/Home'
+import Home from './components/home'
 import Nav from './components/Nav'
-import Account from './components/account'
+import Account from './components/Account'
 import Logout from './components/logout'
 import './index.css'
 import { useUser } from './context/UserContext';
-import CreateCompany from './components/create_company';
+import CreateCompany from './components/CreateCompany';
 
 // Protected Route component
 const ProtectedRoute = ({ children }) => {
@@ -28,28 +28,29 @@ function App() {
   return (
     <UserProvider>
       <Router>
-      <Nav />
-
-        <Routes>
-          <Route path="/login" element={<Login />} />
-          <Route 
-            path="/home" 
-            element={
-                <Home />
-            } 
-          />
-          <Route path="/" element={<Navigate to="/home" />} />
-          <Route 
-            path="/account" 
-            element={
-              <ProtectedRoute>
-                <Account />
-              </ProtectedRoute>
-            } 
-          />
-          <Route path="/logout" element={<Logout />} />
-          <Route path="/create-company" element={<ProtectedRoute><CreateCompany /></ProtectedRoute>} />
-        </Routes>
+        <Nav />
+        <div className="mt-20 ">
+          <Routes>
+            <Route path="/login" element={<Login />} />
+            <Route 
+              path="/home" 
+              element={
+                  <Home />
+              } 
+            />
+            <Route path="/" element={<Navigate to="/home" />} />
+            <Route 
+              path="/account" 
+              element={
+                <ProtectedRoute>
+                  <Account />
+                </ProtectedRoute>
+              } 
+            />
+            <Route path="/logout" element={<Logout />} />
+            <Route path="/create-company" element={<ProtectedRoute><CreateCompany /></ProtectedRoute>} />
+          </Routes>
+        </div>
       </Router>
     </UserProvider>
   )

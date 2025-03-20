@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useUser } from '../context/UserContext';
+import { useNavigate } from 'react-router-dom';
+import { IoMdAdd } from "react-icons/io";
 
 const CompanyInfo = () => {
   const [companyData, setCompanyData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchCompanyData = async () => {
@@ -42,8 +45,12 @@ const CompanyInfo = () => {
   return (
     <div className="p-4">
       <div className="mb-8">
-        <h2 className="text-xl font-semibold mb-4">Company Information</h2>
-        {companyData && (
+        <div className="flex items-start justify-between  p-4">
+          <p className="text-xl font-semibold m-0">Organizations</p>
+          <button onClick={() => navigate('/create-company')} className="text-white p-2 rounded-md hover:bg-blue-200 hover:text-black transition-colors flex items-center"> <IoMdAdd /></button>
+        
+        </div>
+       {companyData && (
           <div className="mb-4">
             {Array.isArray(companyData) ? (
               companyData.map((company, index) => (
