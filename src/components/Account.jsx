@@ -44,12 +44,20 @@ const Account = () => {
       >
         Back to Home
       </button>
-      <button
+      <div className="mt-6 flex gap-4">
+            <button
+              onClick={() => navigate('/account')}
+              className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition-colors"
+            >
+              Manage Account
+            </button>
+            <button
               onClick={() => navigate('/logout')}
               className="bg-red-600 text-white px-4 py-2 rounded-md hover:bg-red-700 transition-colors"
             >
               Logout
             </button>
+          </div>
     </div>
   );
 };

@@ -2,6 +2,7 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 import { UserProvider } from './context/UserContext'
 import Login from './components/login'
 import Home from './components/Home'
+import Nav from './components/Nav'
 import Account from './components/account'
 import Logout from './components/logout'
 import './index.css'
@@ -27,6 +28,8 @@ function App() {
   return (
     <UserProvider>
       <Router>
+      <Nav />
+
         <Routes>
           <Route path="/login" element={<Login />} />
           <Route 
