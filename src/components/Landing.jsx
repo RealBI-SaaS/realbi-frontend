@@ -15,7 +15,7 @@ const Landing = () => {
         
         <Link 
           to="/login" 
-          className="inline-block bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-lg text-lg transition-colors duration-300 shadow-lg hover:shadow-xl"
+          className="inline-block bg-indigo-600 hover:bg-sky-600 text-white font-bold py-3 px-8 rounded-lg text-lg transition-colors duration-300 shadow-lg hover:shadow-xl"
         >
           Get Started
         </Link>

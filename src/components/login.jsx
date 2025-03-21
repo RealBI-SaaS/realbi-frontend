@@ -142,7 +142,7 @@ const Login = () => {
           <button 
             type="submit" 
             disabled={loading}
-            className="signin-btn mt-4 w-full border border-black rounded-sm p-2 text-white flex flex-row items-center gap-2 justify-center hover:bg-gray-800 disabled:opacity-50"
+            className=" border border-indigo-500 p-2 rounded-md bg-indigo-500 hover:bg-indigo-400 shadow-md"
           >
             {loading ? (isSignUp ? 'Signing up...' : 'Signing in...') : (isSignUp ? 'Sign Up' : 'Sign In')}
           </button>

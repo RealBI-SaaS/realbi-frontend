@@ -18,20 +18,20 @@ body {
 }
 .gradient {
     background-image: linear-gradient(
-      330deg,
-      hsl(105deg 55% 96%) 0%,
-      hsl(120deg 53% 93%) 8%,
-      hsl(131deg 50% 89%) 15%,
-      hsl(143deg 47% 86%) 22%,
-      hsl(157deg 46% 83%) 29%,
-      hsl(170deg 45% 79%) 36%,
-      hsl(182deg 43% 76%) 43%,
-      hsl(187deg 44% 67%) 51%,
-      hsl(194deg 45% 58%) 59%,
-      hsl(199deg 46% 49%) 67%,
-      hsl(204deg 48% 40%) 77%,
-      hsl(210deg 49% 32%) 87%,
-      hsl(215deg 50% 23%) 100%
+      45deg,
+      hsl(210deg 14% 83%) 0%,
+      hsl(210deg 14% 86%) 8%,
+      hsl(210deg 14% 88%) 17%,
+      hsl(210deg 14% 90%) 25%,
+      hsl(210deg 15% 93%) 33%,
+      hsl(210deg 15% 95%) 42%,
+      hsl(210deg 17% 98%) 50%,
+      hsl(210deg 17% 98%) 58%,
+      hsl(210deg 17% 98%) 67%,
+      hsl(210deg 17% 99%) 75%,
+      hsl(210deg 17% 99%) 83%,
+      hsl(210deg 17% 100%) 92%,
+      hsl(0deg 0% 100%) 100%
     );
   }
 
