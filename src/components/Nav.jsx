@@ -16,14 +16,22 @@ function Nav() {
                 <button onClick={() => {navigate('/home')}} className="mr-4 block cursor-pointer py-1.5 text-base text-slate-800 font-semibold">
                      <HomeOutlined className="text-lg"/> Home
                 </button>
-                    <Avatar 
-                    style={{ backgroundColor: '#7265e6', verticalAlign: 'middle' }} 
-                    size="large"
-                    onClick={() => navigate('/account')}
-                    className="cursor-pointer"
-                >
-                    {userInitial}
-                </Avatar>
+                    {user && (
+                        <Avatar 
+                        style={{ backgroundColor: '#7265e6', verticalAlign: 'middle' }} 
+                        size="large"
+                        onClick={() => navigate('/account')}
+                        className="cursor-pointer"
+                    >
+                        {userInitial}
+                    </Avatar>
+                    )   }
+                    {!user && (
+                        <button onClick={() => navigate('/login')} className="mr-4 block cursor-pointer py-1.5 text-base text-slate-800 font-semibold">
+                            Login
+                        </button>
+                    )}
+                
            </div>
         </nav>
     )
