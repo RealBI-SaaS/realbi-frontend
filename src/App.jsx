@@ -8,6 +8,7 @@ import Logout from './components/logout'
 import './index.css'
 import { useUser } from './context/UserContext';
 import CreateCompany from './components/CreateCompany';
+import SideMenu from './components/menu/SideMenu';
 
 // Protected Route component
 const ProtectedRoute = ({ children }) => {
@@ -29,7 +30,7 @@ function App() {
     <UserProvider>
       <Router>
         <Nav />
-        <div className="mt-20 ">
+        <div className="mt-20 w-full border-2 border-red-800  mx-auto ">
           <Routes>
             <Route path="/login" element={<Login />} />
             <Route 

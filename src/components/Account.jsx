@@ -3,7 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import { useUser } from '../context/UserContext';
 import CompanyInfo from './CompanyInfo';
 import { Avatar } from 'antd';
-
+import checkIcon from '/check.png';
+import SideMenu from './menu/SideMenu';
 
 const Account = () => {
   const { user } = useUser();
@@ -16,7 +17,9 @@ const Account = () => {
   }
 
   return (
-    <div className="bg-white p-4 rounded-lg shadow-md ">
+    <div className='grid grid-cols-6 h-full'> 
+      <SideMenu  />
+      <div className=" col-span-5 border w-full max-w-screen-lg mt-5 p-4 rounded-lg shadow-md w-full ">
       <h1 className="text-xl mb-4">Account Information</h1>
       <div className='flex items-center justify-start px-5'>
         <Avatar 
@@ -30,8 +33,11 @@ const Account = () => {
           <div>
             <span className="font-medium">{user.firstName} {user.lastName}</span>
           </div>
-          <div>
+          <div className='block'>
             {user.email}
+              {user.isEmailVerified ? (
+                  <img src={checkIcon} alt="verified" className="w-4 h-4 ml-1" />
+              ) : 'not verified'}
           </div>
         </div>
         
@@ -56,6 +62,8 @@ const Account = () => {
         Logout
       </button>
     </div>
+    </div>
+    
   );
 };
 

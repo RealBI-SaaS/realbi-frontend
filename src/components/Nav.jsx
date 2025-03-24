@@ -12,7 +12,7 @@ function Nav() {
     const navigate = useNavigate();
 
     return (   
-        <nav className="fixed top-4 left-1/2 transform -translate-x-1/2 mb-10 w-full max-w-screen-lg px-4 py-2 mx-auto bg-white shadow-lg rounded-xl lg:px-8 lg:py-3 z-50">            <div className="container flex flex-wrap items-center justify-between mx-auto text-slate-800">
+        <nav className="border fixed top-4 left-1/2 transform -translate-x-1/2 mb-10 w-full max-w-screen-lg px-4 py-2 mx-auto bg-white shadow-lg rounded-xl lg:px-8 lg:py-3 z-50">            <div className="container flex flex-wrap items-center justify-between mx-auto text-slate-800">
                 <button onClick={() => {navigate('/home')}} className="mr-4 block hover:translate-y-1 cursor-pointer py-1.5 text-base text-red-800 font-semibold hover:text-sky-600">
                      <HomeOutlined className="text-lg hover:text-sky-600"/> Home
                 </button>
