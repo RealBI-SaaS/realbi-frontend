@@ -8,8 +8,7 @@ import Logout from './components/logout'
 import './index.css'
 import { useUser } from './context/UserContext';
 import CreateCompany from './components/CreateCompany';
-import SideMenu from './components/menu/SideMenu';
-
+import ManageAll from './components/ManageAll';
 // Protected Route component
 const ProtectedRoute = ({ children }) => {
   const { user, loading } = useUser();
@@ -40,6 +39,14 @@ function App() {
               } 
             />
             <Route path="/" element={<Navigate to="/home" />} />
+            <Route 
+              path="/manage-all" 
+              element={
+                <ProtectedRoute>
+                  <ManageAll />
+                </ProtectedRoute>
+              } 
+            />
             <Route 
               path="/account" 
               element={

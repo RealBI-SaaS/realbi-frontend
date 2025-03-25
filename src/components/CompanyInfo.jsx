@@ -19,7 +19,6 @@ const CompanyInfo = () => {
             'Authorization': `Bearer ${accessToken}`
           }
         });
-        console.log(response.data);
         setCompanyData(response.data);
       } catch (err) {
         setError('Failed to fetch company data');

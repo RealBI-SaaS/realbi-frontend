@@ -138,7 +138,8 @@ export const UserProvider = ({ children }) => {
       login, 
       signup, 
       logout,
-      refreshToken
+      refreshToken,
+      fetchUserData,
     }}>
       {children}
     </UserContext.Provider>

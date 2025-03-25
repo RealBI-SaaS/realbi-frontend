@@ -20,7 +20,7 @@ function Nav() {
                         <Avatar 
                         style={{ backgroundColor: '#7265e6', verticalAlign: 'middle' }} 
                         size="large"
-                        onClick={() => navigate('/account')}
+                        onClick={() => navigate('/manage-all')}
                         className="cursor-pointer"
                     >
                         {userInitial}
