@@ -80,17 +80,17 @@ const Login = () => {
   };
 
   return (
-    <div className="signin-container rounded-md p-4 flex flex-col gap-4 items-center">
+    <div className="signin-container rounded-md p-4 m-10 flex flex-col justify-center gap-4 items-center">
       <p className="text-2xl font-bold">{isSignUp ? 'Sign Up' : 'Login'}</p>
       <button 
         onClick={handleGoogleSignIn}
         disabled={loading}
-        className="google-btn w-full border border-black rounded-md p-2 flex flex-row items-center justify-center gap-2 hover:bg-gray-50 disabled:opacity-50"
+        className=" w-100 border border-black rounded-md p-2 flex flex-row items-center justify-center gap-2 hover:bg-gray-50 disabled:opacity-50"
       >
         <FcGoogle size={32} />
         Sign in with Google
       </button>
-      <div className="or-txt">
+      <div className="or-txt w-100">
         <span>or</span>
       </div>
       <div className="signin-container rounded-md py-4 bg-gray-100 w-100">

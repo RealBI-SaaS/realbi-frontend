@@ -12,8 +12,8 @@ function Nav() {
     const navigate = useNavigate();
 
     return (   
-        <nav className="border fixed w-full grid grid-cols-2">
-            <div className='bg-blue-600'>
+        <nav className="border fixed w-full grid grid-cols-2 align-middle">
+            <div className='bg-blue-600 pl-5'>
                 <button onClick={() => {navigate('/home')}} className="mr-4 block hover:translate-y-1 cursor-pointer py-1.5 text-base text-red-800 font-semibold hover:text-sky-600">
                      <HomeOutlined className="text-lg hover:text-sky-600"/> Home
                 </button>
@@ -21,7 +21,7 @@ function Nav() {
             </div>
 
 
-            <div className='bg-red-600'>
+            <div className='bg-red-600 flex justify-end pr-5'>
                 {user && (
                     <Avatar 
                     style={{ backgroundColor: '#7265e6', verticalAlign: 'middle' }} 
@@ -40,9 +40,6 @@ function Nav() {
 
             </div>
 
-            <div className="container flex flex-wrap items-center justify-between mx-auto text-slate-800">
-                                                    
-           </div>
         </nav>
     )
 }
