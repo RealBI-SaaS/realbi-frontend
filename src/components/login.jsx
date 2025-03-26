@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { FcGoogle } from "react-icons/fc";
 import { useNavigate } from 'react-router-dom';
 import { useUser } from '../context/UserContext';
+import {validatePassword} from '../utils/password_validate.js'
 
 const Login = () => {
   const [isSignUp, setIsSignUp] = useState(false);
@@ -33,19 +34,31 @@ const Login = () => {
 
     try {
       if (isSignUp) {
+      const passwordError = validatePassword(formData.password);
+        if (passwordError) {
+          setError(passwordError);
+          setLoading(false);
+          return;
+        }
         await signup(formData);
         // After successful signup, login automatically
 
+<<<<<<< HEAD
         await login(formData.email, formData.password);
         console.log('logged in')
         navigate('/create-company');
+=======
+        //await login(formData.email, formData.password);
+        navigate('/ask-email-verification', {state: {user_email: formData.email }});
+>>>>>>> e771b47 (sign in, up ... css started)
       } else {
         await login(formData.email, formData.password);
         navigate('/home');
 
       }
     } catch (err) {
-      console.log(err);
+      console.log(err?.response?.data);
+      //setError(err?.response?.data);
       // error message already set in context
     } finally {
       setLoading(false);

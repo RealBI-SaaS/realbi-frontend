@@ -1,7 +1,8 @@
 # Google OAuth credentials for authentication
 # Replace these with your own credentials from Google Cloud Console
-VITE_GOOGLE_CLIENT_ID=your_google_client_id_here
-VITE_GOOGLE_CLIENT_SECRET=your_google_client_secret_here
+VITE_GOOGLE_CLIENT_ID=643767657560-7jdsea39joqqm9ru0ln4olo485otq1oh.apps.googleusercontent.com
+VITE_GOOGLE_CLIENT_SECRET=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
+
 
 # Base URL for API endpoints
 VITE_BASE_URL=http://localhost:8000

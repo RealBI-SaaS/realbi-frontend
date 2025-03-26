@@ -4,10 +4,8 @@ import { useUser } from '../context/UserContext';
 import CompanyInfo from './CompanyInfo';
 import { Avatar } from 'antd';
 import checkIcon from '/check.png';
-import SideMenu from './menu/ManageAllSideMenu';
-import { IoMdCheckmark, IoMdClose, IoMdCreate } from "react-icons/io";
-import { useState, useEffect } from 'react';
-import axios from 'axios';
+
+import SettingsMenu from './menu/SettingsMenu';
 
 const Account = () => {
   const { user, fetchUserData, setUser } = useUser();
@@ -58,9 +56,10 @@ const Account = () => {
   }
 
   return (
-    <div className='grid grid-cols-6 h-full'> 
-      {/* account info  */}
-      <div className=" col-span-5 border w-full max-w-screen-lg ml-5 p-4 rounded-lg shadow-md w-full ">
+
+    <div className='grid grid-cols-6 bg-red-400 h-full'> 
+      <SettingsMenu />
+      <div className=" col-span-5 border w-full max-w-screen-lg mt-5 p-4 rounded-lg shadow-md w-full ">
       <h1 className="text-xl mb-4">Account Information</h1>
       <div className='flex flex-col border items-center justify-start px-5'>
 

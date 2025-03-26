@@ -8,8 +8,10 @@ import Logout from './components/logout'
 import './index.css'
 import { useUser } from './context/UserContext';
 import CreateCompany from './components/CreateCompany';
-import ManageAll from './components/ManageAll';
-import VerifiedEmail from './components/VerifiedEmail';
+import SideMenu from './components/menu/SideMenu';
+import VerifyEmail from './components/auth/VerifyEmail'
+import AskEmailVerificatioin from './components/auth/AskEmailVerification'
+
 // Protected Route component
 const ProtectedRoute = ({ children }) => {
   const { user, loading } = useUser();
@@ -28,9 +30,9 @@ const ProtectedRoute = ({ children }) => {
 function App() {
   return (
     <UserProvider>
-      <Router>
+      <Router className="grid grid-cols-1 gap-10">
         <Nav />
-        <div className="mt-20 w-full border-2 border-red-800  mx-auto ">
+        <div className="w-full border-2 border-red-800  mx-auto ">
           <Routes>
             <Route path="/login" element={<Login />} />
             <Route 
@@ -58,7 +60,9 @@ function App() {
             />
             <Route path="/logout" element={<Logout />} />
             <Route path="/create-company" element={<ProtectedRoute><CreateCompany /></ProtectedRoute>} />
-            <Route path="/verified-email" element={<VerifiedEmail />} />
+            <Route  path="/activate/:uid/:token" element={<VerifyEmail />} />
+            <Route  path="/ask-email-verification" element={<AskEmailVerificatioin />} />
+
           </Routes>
         </div>
       </Router>

@@ -13,7 +13,7 @@ export const UserProvider = ({ children }) => {
   // Function to fetch user data from backend
   const fetchUserData = async (token) => {
     try {
-      const response = await axios.get(`${import.meta.env.VITE_BASE_URL}/auth/user/`, {
+      const response = await axios.get(`${import.meta.env.VITE_BASE_URL}/auth/users/me/`, {
         headers: {
           'Authorization': `Bearer ${token}`
         }
@@ -31,7 +31,7 @@ export const UserProvider = ({ children }) => {
       const refreshToken = localStorage.getItem('refresh_token');
       if (!refreshToken) throw new Error('No refresh token available');
 
-      const response = await axios.post(`${import.meta.env.VITE_BASE_URL}/auth/jwt/refresh/`, {
+      const response = await axios.post(`${import.meta.env.VITE_BASE_URL}/auth/jwt/token/refresh/`, {
         refresh: refreshToken
       });
 
@@ -89,7 +89,7 @@ export const UserProvider = ({ children }) => {
 
   const login = async (email, password) => {
     try {
-      const response = await axios.post(`${import.meta.env.VITE_BASE_URL}/auth/jwt/token/`, {
+      const response = await axios.post(`${import.meta.env.VITE_BASE_URL}/auth/jwt/create/`, {
         email,
         password
       });
@@ -103,7 +103,6 @@ export const UserProvider = ({ children }) => {
       return userData;
     } catch (err) {
       if (err.response.data.detail) {
-        console.log('ccdsdfsdgf');
         setError(err.response.data.detail);
         throw err;
 
@@ -113,11 +112,11 @@ export const UserProvider = ({ children }) => {
 
   const signup = async (userData) => {
     try {
-      console.log(userData);
-      const response = await axios.post(`${import.meta.env.VITE_BASE_URL}/auth/user/`, userData);
+      const response = await axios.post(`${import.meta.env.VITE_BASE_URL}/auth/users/`, userData);
       return response.data;
     } catch (err) {
       throw err;
+      console.log(err.data)
     }
   };
 
@@ -139,8 +138,12 @@ export const UserProvider = ({ children }) => {
       login, 
       signup, 
       logout,
+<<<<<<< HEAD
       refreshToken,
       fetchUserData,
+=======
+      //refreshToken
+>>>>>>> e771b47 (sign in, up ... css started)
     }}>
       {children}
     </UserContext.Provider>
