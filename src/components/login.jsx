@@ -43,14 +43,8 @@ const Login = () => {
         await signup(formData);
         // After successful signup, login automatically
 
-<<<<<<< HEAD
-        await login(formData.email, formData.password);
-        console.log('logged in')
-        navigate('/create-company');
-=======
         //await login(formData.email, formData.password);
         navigate('/ask-email-verification', {state: {user_email: formData.email }});
->>>>>>> e771b47 (sign in, up ... css started)
       } else {
         await login(formData.email, formData.password);
         navigate('/home');

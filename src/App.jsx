@@ -8,7 +8,6 @@ import Logout from './components/logout'
 import './index.css'
 import { useUser } from './context/UserContext';
 import CreateCompany from './components/CreateCompany';
-import SideMenu from './components/menu/SideMenu';
 import VerifyEmail from './components/auth/VerifyEmail'
 import AskEmailVerificatioin from './components/auth/AskEmailVerification'
 
@@ -42,15 +41,7 @@ function App() {
               } 
             />
             <Route path="/" element={<Navigate to="/home" />} />
-            <Route 
-              path="/manage-all" 
-              element={
-                <ProtectedRoute>
-                  <ManageAll />
-                </ProtectedRoute>
-              } 
-            />
-            <Route 
+           <Route 
               path="/account" 
               element={
                 <ProtectedRoute>

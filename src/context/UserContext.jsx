@@ -138,12 +138,9 @@ export const UserProvider = ({ children }) => {
       login, 
       signup, 
       logout,
-<<<<<<< HEAD
       refreshToken,
       fetchUserData,
-=======
       //refreshToken
->>>>>>> e771b47 (sign in, up ... css started)
     }}>
       {children}
     </UserContext.Provider>

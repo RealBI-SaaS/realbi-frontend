@@ -30,7 +30,6 @@ function Nav() {
                     className="cursor-pointer"
                 >
                     {userInitial}
->>>>>>> e771b47 (sign in, up ... css started)
                     </Avatar>
                 )   }
                 {!user && (
