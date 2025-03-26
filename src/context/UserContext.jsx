@@ -113,7 +113,8 @@ export const UserProvider = ({ children }) => {
 
   const signup = async (userData) => {
     try {
-      const response = await axios.post(`${import.meta.env.VITE_BASE_URL}/auth/create-user/`, userData);
+      console.log(userData);
+      const response = await axios.post(`${import.meta.env.VITE_BASE_URL}/auth/user/`, userData);
       return response.data;
     } catch (err) {
       throw err;

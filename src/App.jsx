@@ -9,6 +9,7 @@ import './index.css'
 import { useUser } from './context/UserContext';
 import CreateCompany from './components/CreateCompany';
 import ManageAll from './components/ManageAll';
+import VerifiedEmail from './components/VerifiedEmail';
 // Protected Route component
 const ProtectedRoute = ({ children }) => {
   const { user, loading } = useUser();
@@ -57,6 +58,7 @@ function App() {
             />
             <Route path="/logout" element={<Logout />} />
             <Route path="/create-company" element={<ProtectedRoute><CreateCompany /></ProtectedRoute>} />
+            <Route path="/verified-email" element={<VerifiedEmail />} />
           </Routes>
         </div>
       </Router>

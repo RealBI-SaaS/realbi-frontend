@@ -11,7 +11,7 @@ const HomeAuthenticated = () => {
     <div className="home-container p-8">
       <div className="max-w-4xl mx-auto">
           <div className="mb-6">
-            <h2 className="text-4xl font-semibold mb-2">Welcome, {user?.firstName || ''}!</h2>
+            <h2 className="text-4xl font-semibold mb-2">Welcome, {user?.first_name || ''}!</h2>
           </div>
           
          

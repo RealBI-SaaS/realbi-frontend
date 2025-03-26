@@ -37,7 +37,7 @@ const Login = () => {
         // After successful signup, login automatically
 
         await login(formData.email, formData.password);
-        console.log('ccc')
+        console.log('logged in')
         navigate('/create-company');
       } else {
         await login(formData.email, formData.password);
