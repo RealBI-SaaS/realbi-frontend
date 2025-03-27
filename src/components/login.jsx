@@ -154,7 +154,7 @@ const Login = () => {
             {loading ? (isSignUp ? 'Signing up...' : 'Signing in...') : (isSignUp ? 'Sign Up' : 'Sign In')}
           </button>
         </form>
-        {!isSignUp && <a href="#" className="text-sm mt-2 text-muted hover:underline">Forgot password?</a>}
+        {!isSignUp && <a href="/reset-password" className="text-sm mt-2 text-muted hover:underline">Forgot password?</a>}
       </div>
       <div className="">
         <button 
