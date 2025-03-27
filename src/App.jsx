@@ -12,6 +12,7 @@ import VerifyEmail from './components/auth/VerifyEmail'
 import AskEmailVerificatioin from './components/auth/AskEmailVerification'
 import AskForPasswordReset from './components/auth/AskForPasswordReset'
 import ResetPassword from './components/auth/ResetPassword'
+import ManageAll from './components/ManageAll'
 
 // Protected Route component
 const ProtectedRoute = ({ children }) => {
@@ -52,6 +53,7 @@ function App() {
               } 
             />
             <Route path="/logout" element={<Logout />} />
+            <Route path="/manage-all" element={<ManageAll />} />
             <Route path="/create-company" element={<ProtectedRoute><CreateCompany /></ProtectedRoute>} />
             <Route  path="/activate/:uid/:token" element={<VerifyEmail />} />
             <Route  path="/ask-email-verification" element={<AskEmailVerificatioin />} />

@@ -5,6 +5,7 @@ import CompanyInfo from './CompanyInfo';
 import { Avatar } from 'antd';
 import checkIcon from '/check.png';
 import { IoMdCreate, IoMdClose} from "react-icons/io";
+import ManageAllSideMenu from './menu/ManageAllSideMenu'
 import axios from 'axios';
 
 import SettingsMenu from './menu/SettingsMenu';
@@ -102,7 +103,6 @@ const Account = () => {
   return (
 
     <div className='grid grid-cols-6 bg-gray-100 h-full'> 
-      <SettingsMenu />
       <div className=" col-span-5 border w-full max-w-screen-lg mt-5 p-4 rounded-lg shadow-md w-full ">
       <h1 className="text-xl mb-4">Account Information</h1>
       <div className='flex flex-col border items-center justify-start px-5'>

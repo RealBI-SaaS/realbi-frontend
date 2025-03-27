@@ -79,15 +79,16 @@ const App = ({ selectedMenu, setSelectedMenu }) => {
   };
   const navigate = useNavigate();
   return (
+    <div className='bg-red-50 mt-10 '>
     <Menu
       onClick={onClick}
-      style={{ width: 256 }}
       defaultSelectedKeys={['sub1']}
       defaultOpenKeys={['sub1']}
       mode="inline"
       items={items}
-      className='text-black text-lg'
+      className='text-black text-lg '
     />
+    </div>
   );
 };
 export default App;
