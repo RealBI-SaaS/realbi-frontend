@@ -64,7 +64,7 @@ const Login = () => {
     const state = crypto.randomUUID(16).toString("hex");
     localStorage.setItem("latestCSRFToken", state);
 
-    const redirectUri = `${import.meta.env.VITE_BASE_URL}/auth/google/oauth2/callback/`;
+    const redirectUri = `${import.meta.env.VITE_BASE_URL}/myauth/google/oauth2/callback/`;
     const scope = "email profile";
     
     const link = `https://accounts.google.com/o/oauth2/v2/auth?` +

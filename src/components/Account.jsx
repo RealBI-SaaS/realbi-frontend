@@ -5,8 +5,14 @@ import CompanyInfo from './CompanyInfo';
 import { Avatar } from 'antd';
 import checkIcon from '/check.png';
 import { IoMdCreate, IoMdClose} from "react-icons/io";
+import axios from 'axios';
 
 import SettingsMenu from './menu/SettingsMenu';
+import change_password from '../utils/change_password';
+import { validatePassword } from '../utils/password_validate';
+import check_correct_password from '../utils/checkCorrectPasword';
+import Logout from './logout';
+
 
 const Account = () => {
   const { user, fetchUserData, setUser } = useUser();
@@ -14,11 +20,22 @@ const Account = () => {
   const userInitial = userName.charAt(0).toUpperCase();
   const navigate = useNavigate();
 
+
+
   const [isEditing, setIsEditing] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: ''
   });
+
+
+
+  const [passwordChangeMessage,setPasswordChangeMessage] = useState('');
+  const [passwordFormData, setPasswordFormData] = useState({
+    currentPass: '',
+    newPass: '',
+  })
 
   useEffect(() => {
     if (user) {
@@ -32,11 +49,37 @@ const Account = () => {
   if (!user) {
     return <div>Loading...</div>;
   }
+  const handlePasswordChangeFormSubmit = (async (e) => {
+    e.preventDefault();
 
+    let response = validatePassword(passwordFormData.newPass);
+
+    if (response){
+      setPasswordChangeMessage(response)
+      return
+    }
+    response = await check_correct_password(user.email, passwordFormData.currentPass)
+    console.log(response)
+    if(!response){
+      setPasswordChangeMessage("The value for your current password is wrong!")
+      return 
+    }
+    const accessToken = localStorage.getItem('access_token');
+    response = await change_password(passwordFormData.currentPass, passwordFormData.newPass, accessToken)
+
+    if (!response){
+      navigate('/logout')
+    }else{
+      setPasswordChangeMessage("Unexpected response. Please try again.")
+    }
+
+  })
+
+  //TODO: Refactor this method
   const handleUpdateFormSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.put(`${import.meta.env.VITE_BASE_URL}/auth/user/`, {
+      const response = await axios.patch(`${import.meta.env.VITE_BASE_URL}/myauth/user/`, {
         first_name: formData.firstName,  
         last_name: formData.lastName 
       }, {
@@ -58,7 +101,7 @@ const Account = () => {
 
   return (
 
-    <div className='grid grid-cols-6 bg-red-400 h-full'> 
+    <div className='grid grid-cols-6 bg-gray-100 h-full'> 
       <SettingsMenu />
       <div className=" col-span-5 border w-full max-w-screen-lg mt-5 p-4 rounded-lg shadow-md w-full ">
       <h1 className="text-xl mb-4">Account Information</h1>
@@ -119,14 +162,7 @@ const Account = () => {
         </div>
       ) : ( 
       
-      // <div className='flex flex-col border items-center justify-start px-5'>
-      //   <Avatar 
-      //       style={{ backgroundColor: '#7265e6', verticalAlign: 'middle' }} 
-      //       size={300}
-      //       className="cursor-pointer"
-      //   >
-            // <span className="text-5xl">{userInitial}</span>
-        // </Avatar>
+    
         <div className='flex flex-col ml-4 border w-75'>
           <div className='flex justify-between'>
             <span className="font-medium">{user.first_name} {user.last_name}</span>
@@ -141,25 +177,33 @@ const Account = () => {
       </div>
 
 
-      {/* email status  */}
 
-      <h1 className="text-xl mb-4">Email Status</h1>
-      <div className='flex flex-col border items-center justify-start px-5'>
-       
-        <div className='flex flex-col ml-4 border'>
-          
-          <div className='block-inline'>
-              {user.isEmailVerified ? (
-                  <span className='text-green-500'>Email is successfully verified!<IoMdCheckmark /></span>
-              ) : (
-                <div>
-                  <span className='text-red-500 flex'>email is not verified<IoMdClose /></span>
-                  <button className='bg-blue-500 text-white px-4 py-2 rounded-sm hover:bg-blue-700 transition-colors'>Verify Email</button>
-                </div>
-              )}
-          </div>
-        </div>
-        
+      <h1 className="text-xl mb-4">Change Password</h1>
+      <div className='flex flex-col border items-center justify-start px-5 '>
+          <p className='text-sm text-red-200'>{passwordChangeMessage}</p>
+        <form className='grid grid-cols-1 gap-3' onSubmit={handlePasswordChangeFormSubmit }>
+            <input 
+              type={showPassword ? "text" : "password"}
+              name="current_password" 
+              onChange={(e) => setPasswordFormData({ ...passwordFormData, currentPass: e.target.value })}
+            />
+            <input 
+              type={showPassword ? "text" : "password"}
+              name="new_password" 
+              onChange={(e) => setPasswordFormData({ ...passwordFormData, newPass: e.target.value })}
+            />
+            <div className='flex gap-3'>
+              <input
+                type="checkbox"
+                id="show-password"
+                checked={showPassword}
+                onChange={() => setShowPassword((prev) => !prev)}
+                className="cursor-pointer"
+              />
+              <label htmlFor="show-password" className="text-sm cursor-pointer">Show Password</label>
+            </div>
+            <button type="submit" className='border bg-red-400'> Finish </button>
+        </form>
       </div>
       
       

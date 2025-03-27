@@ -13,7 +13,7 @@ export const UserProvider = ({ children }) => {
   // Function to fetch user data from backend
   const fetchUserData = async (token) => {
     try {
-      const response = await axios.get(`${import.meta.env.VITE_BASE_URL}/auth/users/me/`, {
+      const response = await axios.get(`${import.meta.env.VITE_BASE_URL}/myauth/user/`, {
         headers: {
           'Authorization': `Bearer ${token}`
         }
@@ -31,7 +31,7 @@ export const UserProvider = ({ children }) => {
       const refreshToken = localStorage.getItem('refresh_token');
       if (!refreshToken) throw new Error('No refresh token available');
 
-      const response = await axios.post(`${import.meta.env.VITE_BASE_URL}/auth/jwt/token/refresh/`, {
+      const response = await axios.post(`${import.meta.env.VITE_BASE_URL}/auth/jwt/refresh/`, {
         refresh: refreshToken
       });
 
