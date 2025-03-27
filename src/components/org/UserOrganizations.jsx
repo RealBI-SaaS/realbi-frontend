@@ -1,28 +1,41 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
-import { useUser } from '../context/UserContext';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from "react-router-dom";
+import { useUser } from '../../context/UserContext';
 import { IoMdAdd } from "react-icons/io";
+import get_users_orgs from '../../utils/org/get_users_organizations';
 
-const CompanyInfo = () => {
-  const [companyData, setCompanyData] = useState(null);
+const UserOrganizations = () => {
+  const [orgData, setOrgData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const navigate = useNavigate();
 
+  const accessToken = localStorage.getItem('access_token');
+
   useEffect(() => {
+    const fetchOrganizationRole = async () => {
+     try {
+        console.log(orgData)
+      } catch (err) {
+        setError('Failed to fetch organization role');
+        console.error('Error fetching organization role:', err);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+
+
     const fetchCompanyData = async () => {
       try {
-        const accessToken = localStorage.getItem('access_token');
-        const response = await axios.get(`${import.meta.env.VITE_BASE_URL}/auth/company/`, {
-          headers: {
-            'Authorization': `Bearer ${accessToken}`
-          }
-        });
-        setCompanyData(response.data);
+        const response = await get_users_orgs(accessToken);
+        console.log(response.data)
+        setOrgData(response.data?.results);
+
+        fetchOrganizationRole();
       } catch (err) {
-        setError('Failed to fetch company data');
-        console.error('Error fetching company data:', err);
+        setError('Failed to fetch organization data');
+        console.error('Error fetching organization data:', err);
       } finally {
         setLoading(false);
       }
@@ -49,25 +62,28 @@ const CompanyInfo = () => {
           <button onClick={() => navigate('/create-company')} className="text-white p-2 rounded-md hover:bg-blue-200 hover:text-black transition-colors flex items-center"> <IoMdAdd /></button>
         
         </div>
-       {companyData && (
+       {orgData && (
           <div className="mb-4">
-            {Array.isArray(companyData) ? (
-              companyData.map((company, index) => (
+            {Array.isArray(orgData) ? (
+              orgData.map((company, index) => (
+              <Link to={`/organizations/${company.id}`} key={index}>
                 <div key={index} className="bg-white rounded-lg shadow p-4 mb-4">
                   <div className="space-y-2">
                     <div>
-                      <span className="font-medium">Company Name:</span> {company.company_name}
+                      <span className="font-medium">Company Name:</span> {company.id}
                     </div>
                     <div>
-                      <span className="font-medium">Company ID:</span> {company.company_id}
+                      <span className="font-medium">Company ID:</span> {company.name}
                     </div>
                     <div>
                       <span className="font-medium">Role:</span> {company.role}
                     </div>
                   </div>
                 </div>
+              </Link>
               ))
             ) : (
+              <Link to={`/organizations/${company.id}`} key={index}>
               <div className="bg-white rounded-lg shadow p-4">
                 <div className="space-y-2">
                   <div>
@@ -81,6 +97,8 @@ const CompanyInfo = () => {
                   </div>
                 </div>
               </div>
+
+            </Link>
             )}
           </div>
         )}
@@ -89,4 +107,4 @@ const CompanyInfo = () => {
   );
 };
 
-export default CompanyInfo; 
+export default UserOrganizations; 

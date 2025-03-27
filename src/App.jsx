@@ -13,6 +13,8 @@ import AskEmailVerificatioin from './components/auth/AskEmailVerification'
 import AskForPasswordReset from './components/auth/AskForPasswordReset'
 import ResetPassword from './components/auth/ResetPassword'
 import ManageAll from './components/ManageAll'
+import OrganizationDetails from './components/org/OrganizationDetails'
+import AcceptInvitation from './components/org/AcceptInvitation'
 
 // Protected Route component
 const ProtectedRoute = ({ children }) => {
@@ -59,6 +61,8 @@ function App() {
             <Route  path="/ask-email-verification" element={<AskEmailVerificatioin />} />
             <Route  path="/reset-password" element={<AskForPasswordReset />} />
             <Route  path="/password/reset/confirm/:uid/:token" element={<ResetPassword />} />
+            <Route path="/organizations/:id" element={<OrganizationDetails />} />
+            <Route path="/accept-invitation/:token" element={<AcceptInvitation />} />
 
           </Routes>
         </div>

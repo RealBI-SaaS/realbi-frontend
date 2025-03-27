@@ -9,14 +9,14 @@ const CreateCompany = () => {
     
     try {
       const token = localStorage.getItem('access_token');
-      const response = await fetch(`${import.meta.env.VITE_BASE_URL}/auth/company/`, {
+      const response = await fetch(`${import.meta.env.VITE_BASE_URL}/organizations/organization/`, {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${token}`,
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          company_name: companyName
+          name: companyName
         })
       });
 

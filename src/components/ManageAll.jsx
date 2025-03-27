@@ -22,7 +22,7 @@ function ManageAll() {
   const selectedComponent = menuItems.find(item => item.key === selectedMenu)?.component;
 
   return (
-    <div className="grid grid-cols-6 h-full min-h-screen">
+    <div className="grid grid-cols-6 h-full min-h-screen mt-10">
       <SideMenu selectedMenu={selectedMenu} setSelectedMenu={setSelectedMenu} />
       <div className="border rounded-lg shadow-md col-span-5 overflow-auto">
         <div className="w-full h-full">
