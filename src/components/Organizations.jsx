@@ -41,13 +41,12 @@ function Organizations() {
   }
 
   return (
-    <div className='grid grid-cols-6 bg-gray-100 h-full mt-20 pt-20'> 
-      <div className="col-span-5 border w-full max-w-screen-lg mt-5 p-4 rounded-lg shadow-md">
-        <h1 className="text-xl mb-4">Your Organizations</h1>
+    <div className='grid grid-cols-6 bg-gray-100 h-full '> 
+      <div className="col-span-5 w-full max-w-screen-lg mt-5 p-4 rounded-lg shadow-md">
         <UserOrganizations orgData={orgData} />
       </div>
 
-      <div className="col-span-5 border w-full max-w-screen-lg mt-5 p-4 rounded-lg shadow-md">
+      <div className="col-span-5 w-full max-w-screen-lg mt-5 p-4 rounded-lg shadow-md">
         <h1 className="text-xl mb-4">New Organizations</h1>
         <CreateOrganization onOrganizationCreated={handleOrganizationCreated} />
       </div>

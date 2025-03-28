@@ -102,22 +102,15 @@ const Account = () => {
   return (
 
     <div className='grid grid-cols-6 bg-gray-100 h-full'> 
-      <div className=" col-span-5 border w-full max-w-screen-lg mt-5 p-4 rounded-lg shadow-md w-full ">
+      <div className=" col-span-5 w-full max-w-screen-lg mt-5 p-4 rounded-lg w-full ">
       <h1 className="text-xl mb-4">Account Information</h1>
-      <div className='flex flex-col border items-center justify-start px-5'>
+      <div className='flex flex-col border rounded-sm  p-3 items-center justify-start'>
 
-      <Avatar 
-            style={{ backgroundColor: '#7265e6', verticalAlign: 'middle' }} 
-            size={300}
-            className="cursor-pointer"
-        >
-            <span className="text-5xl">{userInitial}</span>
-        </Avatar>
       {isEditing ? (
         <div className="w-full max-w-md mt-4">
           <form className="space-y-4" onSubmit={handleUpdateFormSubmit}>
             <div className="space-y-2">
-              <label htmlFor="firstName" className="block text-sm font-medium text-gray-700">
+              <label htmlFor="firstName" className="block text-sm font-sm text-gray-700">
                 First Name
               </label>
               <input
@@ -125,12 +118,12 @@ const Account = () => {
                 type="text"
                 value={formData.firstName}
                 onChange={(e) => setFormData({ ...formData, firstName: e.target.value })}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                className="w-full px-3 py-2 border border-gray-300 rounded-sm focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-gray-500"
                 placeholder="Enter your first name"
               />
             </div>
             <div className="space-y-2">
-              <label htmlFor="lastName" className="block text-sm font-medium text-gray-700">
+              <label htmlFor="lastName" className="block text-sm font-sm text-gray-700">
                 Last Name
               </label>
               <input
@@ -138,21 +131,21 @@ const Account = () => {
                 type="text"
                 value={formData.lastName}
                 onChange={(e) => setFormData({ ...formData, lastName: e.target.value })}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-gray-500"
                 placeholder="Enter your last name"
               />
             </div>
-            <div className="flex space-x-3 pt-2">
+            <div className="flex gap-3 pt-2 py-5">
               <button
                 type="submit"
-                className="flex-1 bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+                className="flex-1 border bg-blue-500 text-gray-700 px-4 py-2 rounded-sm hover:bg-gray-300 transition-colors focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2"
               >
                 Save Changes
               </button>
               <button
                 type="button"
                 onClick={() => setIsEditing(false)}
-                className="flex-1 bg-gray-200 text-gray-700 px-4 py-2 rounded-md hover:bg-gray-300 transition-colors focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2"
+                className="flex-1 border bg-gray-200 text-gray-700 px-4 py-2 rounded-md hover:bg-gray-300 transition-colors focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2"
               >
                 Cancel
               </button>
@@ -162,15 +155,27 @@ const Account = () => {
       ) : ( 
       
     
-        <div className='flex flex-col ml-4 border w-75'>
-          <div className='flex justify-between'>
-            <span className="font-medium">{user.first_name} {user.last_name}</span>
-            <IoMdCreate className="inline-block ml-2 text-gray-500 hover:text-gray-700 cursor-pointer" onClick={() => setIsEditing(true)} />
+        <div className='flex flex-col ml-4 w-75 py-2'>
+          <IoMdCreate className=" grid grid-cols-1 justify-start  items-end w-full ml-2 text-gray-500 hover:text-gray-700 cursor-pointer" onClick={() => setIsEditing(true)} />
+          <div className='flex flex-col justify-between '>
+                  <div className='grid grid-cols-2'>
+                    <div className='flex flex-col items-start px-0 py-0 my-0 pr-5'>
+                      <p className='text-sm text-gray-500 pb-0 mb-0 '>First Name</p>
+                      <p>{user.first_name}</p>
+                    </div>
+                    <div className='flex flex-col items-start px-0 py-0 my-0'>
+                      <p className='text-sm text-gray-500 pb-0 mb-0 '>Last Name</p>
+                      <p>{user.last_name}</p>
+                    </div>
+                    <div className='flex flex-col items-start px-0 py-0 my-0 pt-5'>
+                      <p className='text-sm text-gray-500 pb-0 mb-0 '>Email</p>
+                      <p>{user.email}</p>
+                    </div>
+
+                  </div>
+
           </div>
-          <div className='block'>
-            {user.email}
           </div>
-        </div>
         
       )}
       </div>
@@ -178,17 +183,19 @@ const Account = () => {
 
 
       <h1 className="text-xl mb-4">Change Password</h1>
-      <div className='flex flex-col border items-center justify-start px-5 '>
+      <div className='flex flex-col border items-center justify-start px-5 rounded-sm  p-4 '>
           <p className='text-sm text-red-200'>{passwordChangeMessage}</p>
         <form className='grid grid-cols-1 gap-3' onSubmit={handlePasswordChangeFormSubmit }>
             <input 
               type={showPassword ? "text" : "password"}
               name="current_password" 
+              className='border bg-gray-50 rounded-sm m-2'
               onChange={(e) => setPasswordFormData({ ...passwordFormData, currentPass: e.target.value })}
             />
             <input 
               type={showPassword ? "text" : "password"}
               name="new_password" 
+              className='border bg-gray-50 rounded-sm m-2'
               onChange={(e) => setPasswordFormData({ ...passwordFormData, newPass: e.target.value })}
             />
             <div className='flex gap-3'>
@@ -201,7 +208,7 @@ const Account = () => {
               />
               <label htmlFor="show-password" className="text-sm cursor-pointer">Show Password</label>
             </div>
-            <button type="submit" className='border bg-red-400'> Finish </button>
+            <button type="submit" className='border bg-blue-500 '> Finish </button>
         </form>
       </div>
       
@@ -215,7 +222,7 @@ const Account = () => {
     
       <button
         onClick={() => navigate('/logout')}
-        className="bg-red-300 mx-5 px-5 text-white px-4 py-2 rounded-sm hover:bg-red-700 transition-colors"
+        className="bg-red-300 mx-5 px-5 border text-white px-4 py-2 rounded-sm hover:bg-red-700 transition-colors"
       >
         Logout
       </button>

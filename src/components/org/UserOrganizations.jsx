@@ -5,12 +5,13 @@ import { IoMdAdd } from "react-icons/io";
 
 const UserOrganizations = ({ orgData }) => {
   const navigate = useNavigate();
+  console.log(orgData)
 
   return (
     <div className="p-4">
-      <div className="mb-8">
-        <div className="flex items-start justify-between p-4">
-          <p className="text-xl font-semibold m-0">Organizations</p>
+      <div className="">
+        <div className="flex items-start justify-start p-4">
+          <p className="text-xl font-semibold m-0">Your Organizations</p>
           <button onClick={() => navigate('/create-company')} className="text-white p-2 rounded-md hover:bg-blue-200 hover:text-black transition-colors flex items-center">
             <IoMdAdd />
           </button>
@@ -19,15 +20,12 @@ const UserOrganizations = ({ orgData }) => {
           orgData.map((company, index) => (
             <Link to={`/organizations/${company.id}`} key={index}>
               <div className="bg-white rounded-lg shadow p-4 mb-4">
-                <div className="space-y-2">
+                <div className="">
                   <div>
-                    <span className="font-medium">Company Name:</span> {company.name}
+                    {company.name}
                   </div>
                   <div>
                     <span className="font-medium">Company ID:</span> {company.id}
-                  </div>
-                  <div>
-                    <span className="font-medium">Role:</span> {company.role}
                   </div>
                 </div>
               </div>

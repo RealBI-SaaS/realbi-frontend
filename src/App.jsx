@@ -36,7 +36,7 @@ function App() {
     <UserProvider>
       <Router className="grid grid-cols-1">
         <Nav />
-        <div className="w-full border-2 bg-red-400 grid grid-cols-1 border-red-800  mx-auto ">
+        <div className="w-full  bg-gray-300 grid grid-cols-1 border-red-800  mx-auto ">
           <Routes>
             <Route path="/login" element={<Login />} />
             <Route 
