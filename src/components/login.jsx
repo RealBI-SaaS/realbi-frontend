@@ -40,7 +40,7 @@ const Login = () => {
           setLoading(false);
           return;
         }
-        await signup(formData);
+        const response = await signup(formData);
         // After successful signup, login automatically
 
         //await login(formData.email, formData.password);

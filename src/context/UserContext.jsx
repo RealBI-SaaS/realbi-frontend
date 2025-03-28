@@ -50,6 +50,7 @@ export const UserProvider = ({ children }) => {
       try {
         const accessToken = localStorage.getItem('access_token');
         if (accessToken) {
+          //console.log(accessToken)
           try {
             const userData = await fetchUserData(accessToken);
             setUser(userData);
