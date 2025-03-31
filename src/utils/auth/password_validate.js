@@ -1,7 +1,14 @@
-
 export const commonPasswords = [
-  "password", "123456", "12345678", "qwerty", "abc123", "password1", 
-  "123123", "admin", "letmein", "welcome"
+  "password",
+  "123456",
+  "12345678",
+  "qwerty",
+  "abc123",
+  "password1",
+  "123123",
+  "admin",
+  "letmein",
+  "welcome",
 ];
 
 export const validatePassword = (password) => {
@@ -13,4 +20,3 @@ export const validatePassword = (password) => {
   }
   return null;
 };
-

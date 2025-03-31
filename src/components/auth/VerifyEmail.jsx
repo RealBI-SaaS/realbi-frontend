@@ -1,9 +1,8 @@
-
-import axios from 'axios';
+import axios from "axios";
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 
-
+//user redirected form email after signup
 const VerifyEmail = () => {
   const { uid, token } = useParams();
   const [message, setMessage] = useState("Verifying...");
@@ -12,15 +11,15 @@ const VerifyEmail = () => {
   useEffect(() => {
     const verifyEmail = async () => {
       try {
-
-        const response = await axios.post(`${import.meta.env.VITE_BASE_URL}/auth/users/activation/`,
+        const response = await axios.post(
+          `${import.meta.env.VITE_BASE_URL}/auth/users/activation/`,
           //method: "POST",
-          {uid, token},
-          { headers: { "Content-Type": "application/json" }, }
+          { uid, token },
+          { headers: { "Content-Type": "application/json" } },
         );
         //console.log(response)
 
-        if (response.status == '204') {
+        if (response.status == "204") {
           setMessage("Email verified successfully! Redirecting...");
           //console.log("Account Verified")
           setTimeout(() => navigate("/login"), 3000);
@@ -45,4 +44,3 @@ const VerifyEmail = () => {
 };
 
 export default VerifyEmail;
-

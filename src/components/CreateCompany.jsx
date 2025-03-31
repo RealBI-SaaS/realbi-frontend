@@ -1,33 +1,29 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import axiosInstance from "../axios/axiosInstance";
+
 const CreateCompany = () => {
-  const [companyName, setCompanyName] = useState('');
+  const [companyName, setCompanyName] = useState("");
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+
     try {
-      const token = localStorage.getItem('access_token');
-      const response = await fetch(`${import.meta.env.VITE_BASE_URL}/organizations/organization/`, {
-        method: 'POST',
-        headers: {
-          'Authorization': `Bearer ${token}`,
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          name: companyName
-        })
-      });
+      const token = localStorage.getItem("access_token");
+      const response = await axiosInstance.post(
+        "/organizations/organization/",
+        { name: companyName },
+      );
 
       if (!response.ok) {
-        throw new Error('Failed to create company');
+        throw new Error("Failed to create company");
       }
 
       const data = await response.json();
-      navigate('/account');
+      navigate("/account");
     } catch (error) {
-      console.error('Error creating company:', error);
+      console.error("Error creating company:", error);
       // TODO: Handle error (e.g., show error message to user)
     }
   };
@@ -44,15 +40,19 @@ const CreateCompany = () => {
           value={companyName}
           onChange={(e) => setCompanyName(e.target.value)}
           className="border p-2 rounded-md"
-          
         />
-        
       </form>
       <div className="mt-3 flex gap-4 w-full">
-        <button onClick={handleSubmit} className="text-white bg-blue-100 px-4 py-2 rounded-md hover:bg-blue-200 transition-colors">
+        <button
+          onClick={handleSubmit}
+          className="text-white bg-blue-100 px-4 py-2 rounded-md hover:bg-blue-200 transition-colors"
+        >
           Finish
-          </button>
-        <button onClick={() => navigate('/account')} className="text-white bg-red-100 px-4 py-2 rounded-md hover:bg-red-200 transition-colors">
+        </button>
+        <button
+          onClick={() => navigate("/account")}
+          className="text-white bg-red-100 px-4 py-2 rounded-md hover:bg-red-200 transition-colors"
+        >
           Skip
         </button>
       </div>

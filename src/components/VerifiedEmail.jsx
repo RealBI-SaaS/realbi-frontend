@@ -1,5 +1,5 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React from "react";
+import { Link } from "react-router-dom";
 import { IoMdCheckmarkCircleOutline } from "react-icons/io";
 
 const VerifiedEmail = () => {
@@ -11,7 +11,8 @@ const VerifiedEmail = () => {
           Email Successfully Verified!
         </h1>
         <p className="text-gray-600 mb-6">
-          Thank you for verifying your email address. Your account is now fully activated.
+          Thank you for verifying your email address. Your account is now fully
+          activated.
         </p>
         <Link
           to="/account"

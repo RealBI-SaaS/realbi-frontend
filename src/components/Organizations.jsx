@@ -1,24 +1,23 @@
-
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 import CreateOrganization from "./org/CreateOrganization";
 
-import UserOrganizations from './org/UserOrganizations'
-import get_users_orgs from '../utils/org/get_users_organizations';
+import UserOrganizations from "./org/UserOrganizations";
+import get_users_orgs from "../utils/org/get_users_organizations";
 
 function Organizations() {
   const [orgData, setOrgData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  const accessToken = localStorage.getItem('access_token');
+  const accessToken = localStorage.getItem("access_token");
 
   const fetchOrganizations = async () => {
     try {
       const response = await get_users_orgs(accessToken);
       setOrgData(response.data?.results || []);
     } catch (err) {
-      setError('Failed to fetch organization data');
-      console.error('Error fetching organization data:', err);
+      setError("Failed to fetch organization data");
+      console.error("Error fetching organization data:", err);
     } finally {
       setLoading(false);
     }
@@ -41,7 +40,7 @@ function Organizations() {
   }
 
   return (
-    <div className='grid grid-cols-6 bg-gray-100 h-full '> 
+    <div className="grid grid-cols-6 bg-gray-100 h-full ">
       <div className="col-span-5 w-full max-w-screen-lg mt-5 p-4 rounded-lg shadow-md">
         <UserOrganizations orgData={orgData} />
       </div>
@@ -55,4 +54,3 @@ function Organizations() {
 }
 
 export default Organizations;
-
