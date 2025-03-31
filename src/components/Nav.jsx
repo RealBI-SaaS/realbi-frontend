@@ -3,13 +3,17 @@ import { Avatar } from "antd";
 import { HomeOutlined } from "@ant-design/icons";
 import { useUser } from "../context/UserContext";
 import { useNavigate } from "react-router-dom";
+import OrganizationsDropDown from "./menu/NavDropDown";
+import { useOrg } from "../context/OrganizationContext";
 
 function Nav() {
   const { user } = useUser();
+  const { userOrgs } = useOrg();
   const userName = user?.firstName || user?.email || "x";
   const userInitial = userName.charAt(0).toUpperCase();
 
   const navigate = useNavigate();
+  console.log(userOrgs);
 
   return (
     <nav className="shadow-sm fixed w-full grid grid-cols-2 align-middle">
@@ -26,14 +30,17 @@ function Nav() {
 
       <div className="bg-gray-100 flex justify-end py-2 pr-5">
         {user && (
-          <Avatar
-            style={{ backgroundColor: "#7265e6", verticalAlign: "middle" }}
-            size="large"
-            onClick={() => navigate("/manage-all")}
-            className="cursor-pointer"
-          >
-            {userInitial}
-          </Avatar>
+          <div className="bg-red-500 flex justify-center items-center gap-2">
+            <OrganizationsDropDown />
+            <Avatar
+              style={{ backgroundColor: "#7265e6", verticalAlign: "middle" }}
+              size="large"
+              onClick={() => navigate("/manage-all")}
+              className="cursor-pointer"
+            >
+              {userInitial}
+            </Avatar>
+          </div>
         )}
         {!user && (
           <button

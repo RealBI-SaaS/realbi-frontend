@@ -13,7 +13,7 @@ function Organizations() {
 
   const fetchOrganizations = async () => {
     try {
-      const response = await get_users_orgs(accessToken);
+      const response = await get_users_orgs();
       setOrgData(response.data?.results || []);
     } catch (err) {
       setError("Failed to fetch organization data");

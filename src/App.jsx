@@ -21,6 +21,7 @@ import ManageAll from "./components/ManageAll";
 import OrganizationDetails from "./components/org/OrganizationDetails";
 import AcceptInvitation from "./components/org/AcceptInvitation";
 import { useLocation } from "react-router-dom";
+import { OrganizationProvider } from "./context/OrganizationContext";
 
 // Protected Route component
 const ProtectedRoute = ({ children }) => {
@@ -42,7 +43,9 @@ function App() {
   return (
     <UserProvider>
       <Router className="grid grid-cols-1">
-        <Nav />
+        <OrganizationProvider>
+          <Nav />
+        </OrganizationProvider>
         <div className="w-full  bg-gray-300 grid grid-cols-1 border-red-800  mx-auto ">
           <Routes>
             <Route path="/login" element={<Login />} />

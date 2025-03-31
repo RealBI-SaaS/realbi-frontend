@@ -1,5 +1,5 @@
 import axiosInstance from "../../axios/axiosInstance";
-const get_users_orgs = async (accessToken) => {
+const get_users_orgs = async () => {
   try {
     const response = await axiosInstance.get("/organizations/organization/");
     return response;
