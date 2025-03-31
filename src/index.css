@@ -39,6 +39,10 @@ nav {
     margin-bottom: 100px;
 }
 
+.home-org-menu {
+    width: 250px;
+}
+
 .signin-container {
     background-color: #ffffff;
 }
