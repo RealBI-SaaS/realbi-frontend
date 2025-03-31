@@ -1,9 +1,12 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { IoMdAdd } from "react-icons/io";
+import { useOrg } from "../../context/OrganizationContext";
 
-const UserOrganizations = ({ orgData }) => {
+const UserOrganizations = () => {
   const navigate = useNavigate();
+  const { userOrgs } = useOrg();
+  console.log("org", userOrgs);
   //console.log(orgData)
 
   return (
@@ -18,8 +21,8 @@ const UserOrganizations = ({ orgData }) => {
             <IoMdAdd />
           </button>
         </div>
-        {orgData.length > 0 ? (
-          orgData.map((company, index) => (
+        {userOrgs.length > 0 ? (
+          userOrgs.map((company, index) => (
             <Link to={`/organizations/${company.id}`} key={index}>
               <div className="bg-white rounded-lg shadow p-4 mb-4">
                 <div className="">

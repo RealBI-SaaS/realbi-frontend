@@ -1,27 +1,15 @@
 import { useState } from "react";
 //import axios from "axios";
 import axiosInstance from "../../axios/axiosInstance.js";
+import { useOrg } from "../../context/OrganizationContext.jsx";
 
 function CreateOrganization({ onOrganizationCreated }) {
   const [orgName, setOrgName] = useState("");
+  const { createOrganization } = useOrg();
 
   const handleCreateCompanySubmit = async () => {
-    try {
-      //const token = localStorage.getItem('access_token');
-      const response = await axiosInstance.post(
-        "/organizations/organization/",
-        { name: orgName },
-      );
-
-      if (response.status === 201) {
-        onOrganizationCreated();
-        setOrgName("");
-      } else {
-        throw new Error("Failed to create company");
-      }
-    } catch (error) {
-      console.error("Error creating company:", error);
-    }
+    //const token = localStorage.getItem('access_token');
+    const response = createOrganization(orgName);
   };
 
   return (

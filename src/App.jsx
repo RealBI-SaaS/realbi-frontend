@@ -42,66 +42,66 @@ const ProtectedRoute = ({ children }) => {
 function App() {
   return (
     <UserProvider>
-      <Router className="grid grid-cols-1">
-        <OrganizationProvider>
+      <OrganizationProvider>
+        <Router className="grid grid-cols-1">
           <Nav />
-        </OrganizationProvider>
-        <div className="w-full  bg-gray-300 grid grid-cols-1 border-red-800  mx-auto ">
-          <Routes>
-            <Route path="/login" element={<Login />} />
-            <Route path="/home" element={<Home />} />
-            <Route path="/" element={<Navigate to="/home" />} />
-            <Route
-              path="/account"
-              element={
-                <ProtectedRoute>
-                  <Account />
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="/manage-all"
-              element={
-                <ProtectedRoute>
-                  <ManageAll />
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="/create-company"
-              element={
-                <ProtectedRoute>
-                  <CreateCompany />
-                </ProtectedRoute>
-              }
-            />
+          <div className="w-full  bg-gray-300 grid grid-cols-1 border-red-800  mx-auto ">
+            <Routes>
+              <Route path="/login" element={<Login />} />
+              <Route path="/home" element={<Home />} />
+              <Route path="/" element={<Navigate to="/home" />} />
+              <Route
+                path="/account"
+                element={
+                  <ProtectedRoute>
+                    <Account />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/manage-all"
+                element={
+                  <ProtectedRoute>
+                    <ManageAll />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/create-company"
+                element={
+                  <ProtectedRoute>
+                    <CreateCompany />
+                  </ProtectedRoute>
+                }
+              />
 
-            <Route path="/logout" element={<Logout />} />
-            <Route path="/activate/:uid/:token" element={<VerifyEmail />} />
-            <Route
-              path="/ask-email-verification"
-              element={<AskEmailVerificatioin />}
-            />
-            <Route path="/reset-password" element={<AskForPasswordReset />} />
-            <Route
-              path="/password/reset/confirm/:uid/:token"
-              element={<ResetPassword />}
-            />
-            <Route
-              path="/organizations/:id"
-              element={
-                <ProtectedRoute>
-                  <OrganizationDetails />
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="/accept-invitation/:token"
-              element={<AcceptInvitation />}
-            />
-          </Routes>
-        </div>
-      </Router>
+              <Route path="/logout" element={<Logout />} />
+              <Route path="/activate/:uid/:token" element={<VerifyEmail />} />
+              <Route
+                path="/ask-email-verification"
+                element={<AskEmailVerificatioin />}
+              />
+              <Route path="/reset-password" element={<AskForPasswordReset />} />
+              <Route
+                path="/password/reset/confirm/:uid/:token"
+                element={<ResetPassword />}
+              />
+              <Route
+                path="/organizations/:id"
+                element={
+                  <ProtectedRoute>
+                    <OrganizationDetails />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/accept-invitation/:token"
+                element={<AcceptInvitation />}
+              />
+            </Routes>
+          </div>
+        </Router>
+      </OrganizationProvider>
     </UserProvider>
   );
 }
