@@ -28,7 +28,7 @@ function Nav() {
 
       <div className="bg-gray-100 flex justify-end py-2 pr-5">
         {user && (
-          <div className="bg-red-500 flex justify-center items-center gap-2">
+          <div className=" flex justify-center items-center gap-2">
             <OrganizationsDropDown />
             <Avatar
               style={{ backgroundColor: "#7265e6", verticalAlign: "middle" }}

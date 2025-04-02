@@ -36,7 +36,7 @@ const OrganizationDropDown = () => {
 
   return (
     <Dropdown menu={{ items, onClick: handleMenuClick }}>
-      <button className="bg-blue-600 p-2 border-l-black">
+      <button className="bg-gray-50 hover:gray-bg-200 border rounded-sm p-2 border-l-black">
         <Space>
           {currentOrg?.name || "Select an Organization"}{" "}
           {/* Prevent empty label */}
