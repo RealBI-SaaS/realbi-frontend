@@ -17,6 +17,7 @@ export const useOrg = () => {
 // Provider Component
 export const OrganizationProvider = ({ children }) => {
   const [userOrgs, setUserOrgs] = useState([]);
+  const { user } = useUser();
   //the organization th user is working on
   const [currentOrg, setCurrentOrg] = useState(null);
   //const [loading, setLoading] = useState(true);
@@ -94,7 +95,7 @@ export const OrganizationProvider = ({ children }) => {
     fetchUserOrganizations();
 
     console.log("organizations fetched");
-  }, []);
+  }, [user]);
 
   useEffect(() => {
     fetchNavigations();
