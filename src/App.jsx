@@ -4,6 +4,7 @@ import {
   Route,
   Navigate,
 } from "react-router-dom";
+import AiChat from "./components/ai/ChatBot"
 import { UserProvider } from "./context/UserContext";
 import Login from "./components/login";
 import Home from "./components/Home";
@@ -46,6 +47,7 @@ function App() {
       <OrganizationProvider>
         <Router className="grid grid-cols-1">
           <Nav />
+          <AiChat />
           <div className="w-full  bg-gray-300 grid grid-cols-1 border-red-800  mx-auto ">
             <Routes>
               <Route path="/login" element={<Login />} />
