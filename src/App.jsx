@@ -22,6 +22,7 @@ import OrganizationDetails from "./components/org/OrganizationDetails";
 import AcceptInvitation from "./components/org/AcceptInvitation";
 import { useLocation } from "react-router-dom";
 import { OrganizationProvider } from "./context/OrganizationContext";
+import NavigationManagement from "./components/org/NavigationsManagement";
 
 // Protected Route component
 const ProtectedRoute = ({ children }) => {
@@ -66,6 +67,15 @@ function App() {
                   </ProtectedRoute>
                 }
               />
+              <Route
+                path="/manage-all/navigations"
+                element={
+                  <ProtectedRoute>
+                    <NavigationManagement />
+                  </ProtectedRoute>
+                }
+              />
+
               <Route
                 path="/create-company"
                 element={

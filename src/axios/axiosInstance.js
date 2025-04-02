@@ -36,7 +36,7 @@ axiosInstance.interceptors.response.use(
         console.warn("No refresh token available, logging out...");
         localStorage.removeItem("access_token");
         localStorage.removeItem("refresh_token");
-        window.location.href = "/login";
+        //window.location.href = "/login";
 
         return Promise.reject(error);
       }
@@ -58,7 +58,7 @@ axiosInstance.interceptors.response.use(
         console.error("Error refreshing token:", refreshError);
         localStorage.removeItem("access_token");
         localStorage.removeItem("refresh_token");
-        window.location.href = "/login"; // Redirect to login if refresh fails
+        //window.location.href = "/login"; // Redirect to login if refresh fails
       }
     }
 

@@ -1,17 +1,19 @@
 import { useOrg } from "../../context/OrganizationContext";
 
 const HomeOrgMenu = () => {
-  const { currentOrg } = useOrg();
-  const items = [
+  const { currentOrg, navigations } = useOrg();
+  let items = [
     {
       lable: "Welcome",
       key: 1,
       icon: null,
     },
   ];
+  console.log(navigations);
   return (
     <div className="bg-red-500 home-org-menu w-full h-full grid grid-cols-1 justify-center items-center">
-      <p>{currentOrg.name}</p>
+      {currentOrg && <p>{currentOrg.name}</p>}
+
       {items &&
         items.map((item) => {
           return (

@@ -8,12 +8,10 @@ import { useOrg } from "../context/OrganizationContext";
 
 function Nav() {
   const { user } = useUser();
-  const { userOrgs } = useOrg();
   const userName = user?.firstName || user?.email || "x";
   const userInitial = userName.charAt(0).toUpperCase();
 
   const navigate = useNavigate();
-  console.log(userOrgs);
 
   return (
     <nav className="shadow-sm fixed w-full grid grid-cols-2 align-middle">

@@ -28,6 +28,7 @@ const OrganizationDropDown = () => {
     const selectedOrg = userOrgs.find((org) => org.id === e.key);
     if (selectedOrg) {
       setCurrentOrg(selectedOrg);
+      console.log("organization changed");
       //setSelectedOrg(selectedOrg);
       message.info(`Selected: ${selectedOrg.name}`);
     }

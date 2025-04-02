@@ -21,29 +21,6 @@ export const UserProvider = ({ children }) => {
       throw err;
     }
   };
-
-  // Function to refresh token
-  //const refreshToken = async () => {
-  //  try {
-  //    const refreshToken = localStorage.getItem("refresh_token");
-  //    if (!refreshToken) throw new Error("No refresh token available");
-  //
-  //    const response = await axiosInstance.post(
-  //      `${import.meta.env.VITE_BASE_URL}/auth/jwt/refresh/`,
-  //      {
-  //        refresh: refreshToken,
-  //      },
-  //    );
-  //
-  //    const newAccessToken = response.data.access;
-  //    localStorage.setItem("access_token", newAccessToken);
-  //    return newAccessToken;
-  //  } catch (err) {
-  //    console.error("Error refreshing token:", err);
-  //    throw err;
-  //  }
-  //};
-  //
   // Load user from token on first load
   useEffect(() => {
     const initializeUser = async () => {
@@ -54,10 +31,7 @@ export const UserProvider = ({ children }) => {
         setLoading(false);
         return;
       }
-      //try {
-      //const accessToken = localStorage.getItem("access_token");
-      //if (accessToken) {
-      //console.log(accessToken)
+
       try {
         const userData = await fetchUserData();
         setUser(userData);
@@ -152,6 +126,7 @@ export const UserProvider = ({ children }) => {
         user,
         setUser,
         loading,
+        setLoading,
         error,
         setError,
         login,
