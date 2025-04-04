@@ -1,94 +1,60 @@
-import React from "react";
-import { TeamOutlined, UserOutlined, SettingOutlined } from "@ant-design/icons";
+import React, { useEffect, useState } from "react";
+import { TeamOutlined, UserOutlined } from "@ant-design/icons";
 import { Menu } from "antd";
 import { useNavigate } from "react-router-dom";
-import Organizations from "../Organizations";
+import { useOrg } from "../../context/OrganizationContext";
+import { useMenu } from "../../context/MenuContext";
 
-const items = [
-  {
-    key: "sub1",
-    label: "Account",
-    icon: <UserOutlined />,
-    // children: [
-    //   {
-    //     key: 'g1',
-    //     label: 'Profile',
-    //     type: 'group',
-    //     children: [
-    //       { key: '1', label: 'Option 1' },
-    //       { key: '2', label: 'Option 2' },
-    //     ],
-    //   },
-    //   {
-    //     key: 'g2',
-    //     label: 'Item 2',
-    //     type: 'group',
-    //     children: [
-    //       { key: '3', label: 'Option 3' },
-    //       { key: '4', label: 'Option 4' },
-    //     ],
-    //   },
-    // ],
-  },
-  //{
-  //  key: "sub2",
-  //  label: "Organizations",
-  //  icon: <TeamOutlined />,
-  // children: [
-  //   { key: '5', label: 'Option 5' },
-  //   { key: '6', label: 'Option 6' },
-  //   {
-  //     key: 'sub3',
-  //     label: 'Submenu',
-  //     children: [
-  //       { key: '7', label: 'Option 7' },
-  //       { key: '8', label: 'Option 8' },
-  //     ],
-  //   },
-  // ],
-  //},
-  //{
-  //  type: "divider",
-  //},
-  {
-    key: "sub4",
-    label: "Organization",
+const ManageAllSideMenu = () => {
+  const { selectedMenu, selectMenu } = useMenu();
+  const { currentOrg } = useOrg();
+  const navigate = useNavigate();
+  const [items, setItems] = useState([]);
 
-    icon: <TeamOutlined />,
-    children: [
-      { key: "9", label: "List and Create" },
-      { key: "10", label: "Navigations" },
-      //{ key: "11", label: "Option 11" },
-      //{ key: "12", label: "Option 12" },
-    ],
-  },
-  //{
-  //  key: "grp",
-  //  label: "Group",
-  //  type: "group",
-  //  children: [
-  //    { key: "13", label: "Option 13" },
-  //    { key: "14", label: "Option 14" },
-  //  ],
-  //},
-];
-const App = ({ selectedMenu, setSelectedMenu }) => {
   const onClick = (e) => {
-    setSelectedMenu(e.key);
+    selectMenu(e.key);
+    navigate(e.item.props.url);
     console.log(selectedMenu);
   };
-  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (currentOrg) {
+      setItems([
+        {
+          key: "sub1",
+          label: "Account",
+          url: "/account",
+          icon: <UserOutlined />,
+        },
+        {
+          key: "sub4",
+          label: "Organization",
+          icon: <TeamOutlined />,
+          children: [
+            {
+              key: "9",
+              url: `/Organizations/${currentOrg.id}`,
+              label: "List and Create",
+            },
+            { key: "10", url: "/manage-all/navigations", label: "Navigations" },
+          ],
+        },
+      ]);
+    }
+  }, [currentOrg]);
+
   return (
-    <div className="bg-red-50  pt-5 ">
+    <div className="bg-red-50 pt-15">
       <Menu
         onClick={onClick}
         defaultSelectedKeys={["sub1"]}
         defaultOpenKeys={["sub1"]}
         mode="inline"
         items={items}
-        className="text-black text-lg "
+        className="text-black text-lg"
       />
     </div>
   );
 };
-export default App;
+
+export default ManageAllSideMenu;

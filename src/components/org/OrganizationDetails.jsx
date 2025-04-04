@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+import ManageAllSideMenu from "../menu/ManageAllSideMenu";
 
 import axiosInstance from "../../axios/axiosInstance";
 
@@ -126,31 +127,35 @@ function OrganizationDetails({ organizationId }) {
   if (!organization) return <p>Organization not found.</p>;
 
   return (
-    <div className="w-full mx-auto mt-10 p-6 bg-gray-100 rounded-lg shadow-md grid grid-cols-1">
-      <div className="grid grid-cols-2 border m-3 p-3">
-        <div id="org-details" className=" p-3 m-3 border-l-current">
-          <h2 className="text-2xl font-bold mb-4">{organization.name}</h2>
-          <p className="text-gray-700">
-            Created At: {new Date(organization.created_at).toLocaleDateString()}
-          </p>
+    <div className="grid grid-cols-6 h-full min-h-screen ">
+      <ManageAllSideMenu />
 
-          <div className="mt-6 flex gap-4">
-            <button
-              onClick={() => snavigate(`/organizations/edit/${orgId}`)}
-              className="bg-blue-400 text-md border text-black px-4 py-2 rounded-sm hover:bg-blue-500"
-            >
-              Edit
-            </button>
-            <button
-              onClick={handleDelete}
-              className="bg-red-400 text-black bold-md border px-4 py-2 rounded hover:bg-red-600"
-            >
-              Delete
-            </button>
+      <div className="w-full mx-auto mt-10 p-6 bg-gray-100 rounded-lg shadow-md grid grid-cols-1 col-span-5 overflow-auto">
+        <div className="grid grid-cols-1 border m-3 p-3">
+          <div id="org-details" className=" p-3 m-3 border-l-current">
+            <h2 className="text-2xl font-bold mb-4">{organization.name}</h2>
+            <p className="text-gray-700">
+              {new Date(organization.created_at).toLocaleDateString()}
+            </p>
+
+            <div className="mt-6 flex gap-4">
+              <button
+                onClick={() => snavigate(`/organizations/edit/${orgId}`)}
+                className="bg-blue-400 text-lg rounded-sm border text-black px-4 py-2  hover:bg-blue-500"
+              >
+                Edit
+              </button>
+              <button
+                onClick={handleDelete}
+                className="bg-red-400 text-black bold-md border px-4 py-2 rounded hover:bg-red-600"
+              >
+                Delete
+              </button>
+            </div>
           </div>
         </div>
 
-        <div>
+        <div className="border m-3 p-3">
           <p className="text-lg pt-5">Members</p>
           <div className="overflow-x-auto">
             <table className="min-w-full bg-white border border-gray-300">
@@ -190,66 +195,65 @@ function OrganizationDetails({ organizationId }) {
             </table>
           </div>
         </div>
-      </div>
-      <div className="border m-3 p-3 grid grid-cols-1">
-        <div id="invitations" className="w-full mb-0 pb-0">
-          <div
-            id="invitation-form"
-            className="grid grid-cols-6  items-center justify-center "
-          >
-            <p className="col-span-4 text-lg ">Invitations</p>
-            <div className="flex gap-2">
-              <input
-                type="text"
-                id="email"
-                onChange={(e) => setInviteeEmail(e.target.value)}
-                className="border"
-                value={inviteeEmail}
-                placeholder="email for invitation"
-              />
+        <div className="border m-3 p-3 grid grid-cols-1">
+          <div id="invitations" className="w-full mb-0 pb-0">
+            <div
+              id="invitation-form"
+              className="grid grid-cols-6  items-center justify-center  "
+            >
+              <p className="col-span-3 text-lg ">Invitations</p>
+              <div className="flex col-span-3 justify-end gap-3  ">
+                <input
+                  type="text"
+                  id="email"
+                  onChange={(e) => setInviteeEmail(e.target.value)}
+                  className="border"
+                  value={inviteeEmail}
+                  placeholder="email for invitation"
+                />
 
-              <button onClick={handleInvitationFormSubmit} className="border">
-                {" "}
-                Invite
-              </button>
+                <button onClick={handleInvitationFormSubmit} className="border">
+                  Invite
+                </button>
+              </div>
             </div>
           </div>
-        </div>
 
-        <div className="overflow-x-auto mt-0 pt-0">
-          <table className="min-w-full bg-white border border-gray-300">
-            <thead>
-              <tr className="w-full bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
-                <th className="py-3 px-6 text-left">Email</th>
-                <th className="py-3 px-6 text-left">Role</th>
-                <th className="py-3 px-6 text-left">Expiration Date</th>
-              </tr>
-            </thead>
-            <tbody className="text-gray-600 text-sm font-light">
-              {invitations && invitations.length > 0 ? (
-                invitations.map((invitation, index) => (
-                  <tr
-                    key={index}
-                    className="border-b border-gray-300 hover:bg-gray-100"
-                  >
-                    <td className="py-3 px-6 text-left">
-                      {invitation.invitee_email}
-                    </td>
-                    <td className="py-3 px-6 text-left">{invitation.role}</td>
-                    <td className="py-3 px-6 text-left">
-                      {new Date(invitation.expires_at).toLocaleDateString()}
+          <div className="overflow-x-auto mt-0 pt-0">
+            <table className="min-w-full bg-white border border-gray-300">
+              <thead>
+                <tr className="w-full bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
+                  <th className="py-3 px-6 text-left">Email</th>
+                  <th className="py-3 px-6 text-left">Role</th>
+                  <th className="py-3 px-6 text-left">Expiration Date</th>
+                </tr>
+              </thead>
+              <tbody className="text-gray-600 text-sm font-light">
+                {invitations && invitations.length > 0 ? (
+                  invitations.map((invitation, index) => (
+                    <tr
+                      key={index}
+                      className="border-b border-gray-300 hover:bg-gray-100"
+                    >
+                      <td className="py-3 px-6 text-left">
+                        {invitation.invitee_email}
+                      </td>
+                      <td className="py-3 px-6 text-left">{invitation.role}</td>
+                      <td className="py-3 px-6 text-left">
+                        {new Date(invitation.expires_at).toLocaleDateString()}
+                      </td>
+                    </tr>
+                  ))
+                ) : (
+                  <tr>
+                    <td colSpan="3" className="py-3 px-6 text-center">
+                      No invitations available
                     </td>
                   </tr>
-                ))
-              ) : (
-                <tr>
-                  <td colSpan="3" className="py-3 px-6 text-center">
-                    No invitations available
-                  </td>
-                </tr>
-              )}
-            </tbody>
-          </table>
+                )}
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
     </div>

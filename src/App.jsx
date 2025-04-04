@@ -4,7 +4,7 @@ import {
   Route,
   Navigate,
 } from "react-router-dom";
-import AiChat from "./components/ai/ChatBot"
+import AiChat from "./components/ai/ChatBot";
 import { UserProvider } from "./context/UserContext";
 import Login from "./components/login";
 import Home from "./components/Home";
@@ -24,6 +24,7 @@ import AcceptInvitation from "./components/org/AcceptInvitation";
 import { useLocation } from "react-router-dom";
 import { OrganizationProvider } from "./context/OrganizationContext";
 import NavigationManagement from "./components/org/NavigationsManagement";
+import { MenuProvider } from "./context/MenuContext";
 
 // Protected Route component
 const ProtectedRoute = ({ children }) => {
@@ -46,72 +47,78 @@ function App() {
     <UserProvider>
       <OrganizationProvider>
         <Router className="grid grid-cols-1">
-          <Nav />
-          <AiChat />
-          <div className="w-full  bg-gray-300 grid grid-cols-1 border-red-800  mx-auto ">
-            <Routes>
-              <Route path="/login" element={<Login />} />
-              <Route path="/home" element={<Home />} />
-              <Route path="/" element={<Navigate to="/home" />} />
-              <Route
-                path="/account"
-                element={
-                  <ProtectedRoute>
-                    <Account />
-                  </ProtectedRoute>
-                }
-              />
-              <Route
-                path="/manage-all"
-                element={
-                  <ProtectedRoute>
-                    <ManageAll />
-                  </ProtectedRoute>
-                }
-              />
-              <Route
-                path="/manage-all/navigations"
-                element={
-                  <ProtectedRoute>
-                    <NavigationManagement />
-                  </ProtectedRoute>
-                }
-              />
+          <MenuProvider>
+            <Nav />
+            <AiChat />
+            <div className="w-full  bg-gray-300 grid grid-cols-1 border-red-800  mx-auto ">
+              <Routes>
+                <Route path="/login" element={<Login />} />
+                <Route path="/home" element={<Home />} />
+                <Route path="/" element={<Navigate to="/home" />} />
+                <Route
+                  path="/manage-all"
+                  element={
+                    <ProtectedRoute>
+                      <ManageAll />
+                    </ProtectedRoute>
+                  }
+                />
 
-              <Route
-                path="/create-company"
-                element={
-                  <ProtectedRoute>
-                    <CreateCompany />
-                  </ProtectedRoute>
-                }
-              />
+                <Route
+                  path="/organizations/:id"
+                  element={
+                    <ProtectedRoute>
+                      <OrganizationDetails />
+                    </ProtectedRoute>
+                  }
+                />
+                <Route
+                  path="/manage-all/navigations"
+                  element={
+                    <ProtectedRoute>
+                      <NavigationManagement />
+                    </ProtectedRoute>
+                  }
+                />
+                <Route
+                  path="/account"
+                  element={
+                    <ProtectedRoute>
+                      <Account />
+                    </ProtectedRoute>
+                  }
+                />
 
-              <Route path="/logout" element={<Logout />} />
-              <Route path="/activate/:uid/:token" element={<VerifyEmail />} />
-              <Route
-                path="/ask-email-verification"
-                element={<AskEmailVerificatioin />}
-              />
-              <Route path="/reset-password" element={<AskForPasswordReset />} />
-              <Route
-                path="/password/reset/confirm/:uid/:token"
-                element={<ResetPassword />}
-              />
-              <Route
-                path="/organizations/:id"
-                element={
-                  <ProtectedRoute>
-                    <OrganizationDetails />
-                  </ProtectedRoute>
-                }
-              />
-              <Route
-                path="/accept-invitation/:token"
-                element={<AcceptInvitation />}
-              />
-            </Routes>
-          </div>
+                <Route
+                  path="/create-company"
+                  element={
+                    <ProtectedRoute>
+                      <CreateCompany />
+                    </ProtectedRoute>
+                  }
+                />
+
+                <Route path="/logout" element={<Logout />} />
+                <Route path="/activate/:uid/:token" element={<VerifyEmail />} />
+                <Route
+                  path="/ask-email-verification"
+                  element={<AskEmailVerificatioin />}
+                />
+                <Route
+                  path="/reset-password"
+                  element={<AskForPasswordReset />}
+                />
+                <Route
+                  path="/password/reset/confirm/:uid/:token"
+                  element={<ResetPassword />}
+                />
+                <Route
+                  path="/accept-invitation/:token"
+                  element={<AcceptInvitation />}
+                />
+              </Routes>
+            </div>
+          </MenuProvider>
         </Router>
       </OrganizationProvider>
     </UserProvider>

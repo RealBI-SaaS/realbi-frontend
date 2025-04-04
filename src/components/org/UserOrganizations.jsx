@@ -2,6 +2,7 @@ import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { IoMdAdd } from "react-icons/io";
 import { useOrg } from "../../context/OrganizationContext";
+import ManageAllSideMenu from "../menu/ManageAllSideMenu";
 
 const UserOrganizations = () => {
   const navigate = useNavigate();
