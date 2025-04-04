@@ -1,153 +1,99 @@
 import { useEffect, useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import ManageAllSideMenu from "../menu/ManageAllSideMenu";
-
 import axiosInstance from "../../axios/axiosInstance";
+import { useOrg } from "../../context/OrganizationContext";
 
-function OrganizationDetails({ organizationId }) {
-  const { id } = useParams(); // Get from URL if not passed as prop
-  const orgId = organizationId || id;
-  const [organization, setOrganization] = useState(null);
-  const [members, setMembers] = useState(null);
-  const [invitations, setInvitations] = useState(null);
+function OrganizationDetails() {
+  const { currentOrg } = useOrg();
+  const [members, setMembers] = useState([]);
+  const [invitations, setInvitations] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [inviteeEmail, setInviteeEmail] = useState("");
   const navigate = useNavigate();
 
-  //const token = localStorage.getItem("access_token");
-
-  const [inviteeEmail, setInviteeEmail] = useState("");
-  async function handleInvitationFormSubmit() {
-    try {
-      const response = await axiosInstance.post(
-        `/organizations/${orgId}/invite/`,
-        { email: inviteeEmail },
-      );
-      //setOrganization(response.data);
-      const newInvitation = response.data;
-
-      // Update the invitations state by appending the new invitation
-      setInvitations((prevInvitations) => [...prevInvitations, newInvitation]);
-
-      // Optionally, reset the inviteeEmail state to clear the input field
-      setInviteeEmail("");
-    } catch (error) {
-      console.error("Error fetching organization:", error);
-    } finally {
-      setLoading(false);
-    }
-  }
-
   useEffect(() => {
-    if (!orgId) return;
+    if (!currentOrg) return;
 
-    //fetch invitations
-    const fetchInvitations = async () => {
-      try {
-        const response = await axiosInstance.get(
-          `/organizations/${orgId}/invitations`,
-          //{
-          //  headers: {
-          //    Authorization: `Bearer ${token}`,
-          //  },
-          //},
-        );
-        setInvitations(response.data);
-      } catch (error) {
-        console.error("Error fetching organization:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    //fetch org. info
-    const fetchOrganization = async () => {
-      try {
-        const response = await axiosInstance.get(
-          `/organizations/organization/${orgId}/`,
-          //{
-          //  headers: {
-          //    Authorization: `Bearer ${token}`,
-          //  },
-          //},
-        );
-        setOrganization(response.data);
-      } catch (error) {
-        console.error("Error fetching organization:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    //fetch members list
     const fetchMembers = async () => {
       try {
         const response = await axiosInstance.get(
-          `organizations/organization/${orgId}/members/`,
-          //{
-          //  headers: {
-          //    Authorization: `Bearer ${token}`,
-          //  },
-          //},
+          `/organizations/organization/${currentOrg.id}/members/`,
         );
         setMembers(response.data);
       } catch (error) {
         console.error("Error fetching members:", error);
-      } finally {
-        setLoading(false);
       }
     };
 
-    fetchOrganization();
-    fetchMembers();
-    fetchInvitations();
-  }, [orgId]);
+    const fetchInvitations = async () => {
+      try {
+        const response = await axiosInstance.get(
+          `/organizations/${currentOrg.id}/invitations`,
+        );
+        setInvitations(response.data);
+      } catch (error) {
+        console.error("Error fetching invitations:", error);
+      }
+    };
+
+    setLoading(true);
+    Promise.all([fetchMembers(), fetchInvitations()]).finally(() =>
+      setLoading(false),
+    );
+  }, [currentOrg]);
+
+  const handleInvitationFormSubmit = async () => {
+    try {
+      const response = await axiosInstance.post(
+        `/organizations/${currentOrg.id}/invite/`,
+        { email: inviteeEmail },
+      );
+      setInvitations((prev) => [...prev, response.data]);
+      setInviteeEmail("");
+    } catch (error) {
+      console.error("Error sending invitation:", error);
+    }
+  };
 
   const handleDelete = async () => {
     if (!window.confirm("Are you sure you want to delete this organization?"))
       return;
 
     try {
-      //const token = localStorage.getItem("access_token");
       await axiosInstance.delete(
-        `/organizations/organization/${orgId}/`,
-        //{
-        //  headers: {
-        //    Authorization: `Bearer ${token}`,
-        //  },
-        //},
+        `/organizations/organization/${currentOrg.id}/`,
       );
       alert("Organization deleted successfully.");
-      navigate("/manage-all"); // Redirect after deletion
+      navigate("/manage-all");
     } catch (error) {
       console.error("Error deleting organization:", error);
     }
   };
 
   if (loading) return <p>Loading...</p>;
-  if (!organization) return <p>Organization not found.</p>;
+  if (!currentOrg) return <p>Organization not found.</p>;
 
   return (
-    <div className="grid grid-cols-6 h-full min-h-screen ">
+    <div className="grid grid-cols-6 h-full min-h-screen">
       <ManageAllSideMenu />
-
       <div className="w-full mx-auto mt-10 p-6 bg-gray-100 rounded-lg shadow-md grid grid-cols-1 col-span-5 overflow-auto">
         <div className="grid grid-cols-1 border m-3 p-3">
-          <div id="org-details" className=" p-3 m-3 border-l-current">
-            <h2 className="text-2xl font-bold mb-4">{organization.name}</h2>
+          <div id="org-details" className="p-3 m-3 border-l-current">
+            <h2 className="text-2xl font-bold mb-4">{currentOrg.name}</h2>
             <p className="text-gray-700">
-              {new Date(organization.created_at).toLocaleDateString()}
+              {new Date(currentOrg.created_at).toLocaleDateString()}
             </p>
-
             <div className="mt-6 flex gap-4">
               <button
-                onClick={() => snavigate(`/organizations/edit/${orgId}`)}
-                className="bg-blue-400 text-lg rounded-sm border text-black px-4 py-2  hover:bg-blue-500"
+                onClick={() => navigate(`/organizations/edit/${currentOrg.id}`)}
+                className="bg-blue-400 text-lg rounded-sm border text-black px-4 py-2 hover:bg-blue-500"
               >
                 Edit
               </button>
               <button
                 onClick={handleDelete}
-                className="bg-red-400 text-black bold-md border px-4 py-2 rounded hover:bg-red-600"
+                className="bg-red-400 text-lg text-black border px-4 py-2 rounded hover:bg-red-600"
               >
                 Delete
               </button>
@@ -160,15 +106,15 @@ function OrganizationDetails({ organizationId }) {
           <div className="overflow-x-auto">
             <table className="min-w-full bg-white border border-gray-300">
               <thead>
-                <tr className="w-full bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
+                <tr className="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
                   <th className="py-3 px-6 text-left">Email</th>
                   <th className="py-3 px-6 text-left">First Name</th>
                   <th className="py-3 px-6 text-left">Last Name</th>
                   <th className="py-3 px-6 text-left">Role</th>
                 </tr>
               </thead>
-              <tbody className="text-gray-600 text-sm font-light">
-                {members && members.length > 0 ? (
+              <tbody>
+                {members.length > 0 ? (
                   members.map((member, index) => (
                     <tr
                       key={index}
@@ -186,7 +132,7 @@ function OrganizationDetails({ organizationId }) {
                   ))
                 ) : (
                   <tr>
-                    <td colSpan="5" className="py-3 px-6 text-center">
+                    <td colSpan="4" className="py-3 px-6 text-center">
                       No members available
                     </td>
                   </tr>
@@ -195,41 +141,38 @@ function OrganizationDetails({ organizationId }) {
             </table>
           </div>
         </div>
-        <div className="border m-3 p-3 grid grid-cols-1">
-          <div id="invitations" className="w-full mb-0 pb-0">
-            <div
-              id="invitation-form"
-              className="grid grid-cols-6  items-center justify-center  "
-            >
-              <p className="col-span-3 text-lg ">Invitations</p>
-              <div className="flex col-span-3 justify-end gap-3  ">
-                <input
-                  type="text"
-                  id="email"
-                  onChange={(e) => setInviteeEmail(e.target.value)}
-                  className="border"
-                  value={inviteeEmail}
-                  placeholder="email for invitation"
-                />
 
-                <button onClick={handleInvitationFormSubmit} className="border">
-                  Invite
-                </button>
-              </div>
+        <div className="border m-3 p-3">
+          <div className="grid grid-cols-2">
+            <p className="text-lg">Invitations</p>
+            <div className="flex gap-3 h-7 justify-end">
+              <input
+                type="text"
+                onChange={(e) => setInviteeEmail(e.target.value)}
+                className="border px-1"
+                value={inviteeEmail}
+                placeholder="Email for invitation"
+              />
+              <button
+                onClick={handleInvitationFormSubmit}
+                className="border bg-amber-300 px-1"
+              >
+                Invite
+              </button>
             </div>
           </div>
 
-          <div className="overflow-x-auto mt-0 pt-0">
+          <div className="overflow-x-auto mt-4">
             <table className="min-w-full bg-white border border-gray-300">
               <thead>
-                <tr className="w-full bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
+                <tr className="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
                   <th className="py-3 px-6 text-left">Email</th>
                   <th className="py-3 px-6 text-left">Role</th>
                   <th className="py-3 px-6 text-left">Expiration Date</th>
                 </tr>
               </thead>
-              <tbody className="text-gray-600 text-sm font-light">
-                {invitations && invitations.length > 0 ? (
+              <tbody>
+                {invitations.length > 0 ? (
                   invitations.map((invitation, index) => (
                     <tr
                       key={index}
