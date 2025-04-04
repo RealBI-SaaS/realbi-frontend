@@ -44,7 +44,7 @@ const ManageAllSideMenu = () => {
   }, [currentOrg]);
 
   return (
-    <div className="bg-red-50 pt-15">
+    <div className="bg-white pt-15">
       <Menu
         onClick={onClick}
         defaultSelectedKeys={["sub1"]}

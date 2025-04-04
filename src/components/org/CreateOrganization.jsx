@@ -13,24 +13,22 @@ function CreateOrganization({ onOrganizationCreated }) {
   };
 
   return (
-    <div className="grid grid-cols-6 ">
-      <div className="col-span-5 flex justify-between   border w-full max-w-screen-lg mt-5 p-4 rounded-lg shadow-md">
-        <div className="flex border   w-full rounsed-sm items-center justify-between  gap-3 justify-center ">
-          <form className="mt-0 pt-0 w-full ">
-            <input
-              type="text"
-              id="companyName"
-              name="companyName"
-              placeholder="Company Name"
-              value={orgName}
-              onChange={(e) => setOrgName(e.target.value)}
-              className="w-full"
-            />
-          </form>
-        </div>
+    <div className="grid grid-cols-1 justify-start bg-gray-200  w-full ">
+      <div className="flex border gap-3   w-full rounsed-sm items-center justify-between   gap-3 justify-center ">
+        <form className=" border">
+          <input
+            type="text"
+            id="companyName"
+            name="companyName"
+            placeholder="Company Name"
+            value={orgName}
+            onChange={(e) => setOrgName(e.target.value)}
+            className="w-full"
+          />
+        </form>
         <button
           onClick={handleCreateCompanySubmit}
-          className="text-white bg-blue-500 px-4 py-2 rounded-sm hover:bg-blue-400 transition-colors border"
+          className="text-white bg-blue-500  hover:bg-blue-400 transition-colors border"
         >
           Create
         </button>

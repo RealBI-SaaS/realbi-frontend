@@ -80,10 +80,10 @@ const NavigationManagement = () => {
   //}, []);
   //
   return (
-    <div className="grid grid-cols-6 h-full min-h-screen mt-10">
+    <div className="grid grid-cols-6 h-full min-h-screen">
       <ManageAllSideMenu />
 
-      <div className="bg-gray-200 p-20 mt-5 grid grid-cols-1 mt-20 col-span-5 overflow-auto">
+      <div className="bg-gray-200 p-20 mt-5 grid grid-cols-1  col-span-5 overflow-auto">
         {loading || !currentOrg ? (
           <p>Loading</p>
         ) : (
@@ -93,11 +93,11 @@ const NavigationManagement = () => {
             </p>
             <p className="text-xl">Current navigations</p>
             {navigations.length > 0 ? (
-              <div className="">
+              <div className="border ">
                 {navigations.map((navigation, ind) =>
                   navigationGettingEdited === navigation.id ? (
                     <form
-                      className=" border p-5 grid grid-cols-5 "
+                      className=" p-5 grid grid-cols-5 "
                       key={navigation.id}
                       onSubmit={handleNavigationEdit}
                     >
@@ -126,7 +126,7 @@ const NavigationManagement = () => {
                   ) : (
                     <div
                       key={navigation.id}
-                      className="border grid grid-cols-6 justify-around gap-1 m-3 items-center"
+                      className=" border-b grid grid-cols-6 justify-around gap-1 m-3 items-center"
                     >
                       <p className="justify-start text-gray-400">{ind + 1}</p>
                       <p className="col-span-4">{navigation.label}</p>
@@ -159,11 +159,11 @@ const NavigationManagement = () => {
             <p className="text-xl mt-5 pt-5">Create navigations</p>
             <form
               onSubmit={handleNavigationCreation}
-              className="grid flex flex-col border justify-center items-center gap-2.5 p-5 "
+              className="grid flex flex-col border justify-center items-center gap-2.5  "
             >
               <input
                 type="text"
-                className="border w-50"
+                className="border w-50 px-3 py-1"
                 placeholder="naviagtion label"
                 onChange={(e) => setLabel(e.target.value)}
               />

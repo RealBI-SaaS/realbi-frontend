@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import ManageAllSideMenu from "../menu/ManageAllSideMenu";
 import axiosInstance from "../../axios/axiosInstance";
 import { useOrg } from "../../context/OrganizationContext";
+import CreateOrganization from "./CreateOrganization";
 
 function OrganizationDetails() {
   const { currentOrg } = useOrg();
@@ -197,6 +198,12 @@ function OrganizationDetails() {
               </tbody>
             </table>
           </div>
+        </div>
+
+        <div className="grid">
+          <p className="text-lg">Create Organization</p>
+
+          <CreateOrganization />
         </div>
       </div>
     </div>

@@ -98,12 +98,12 @@ const Account = () => {
   };
 
   return (
-    <div className="grid grid-cols-6 h-full min-h-screen mt-10">
+    <div className="grid grid-cols-6 h-full min-h-screen ">
       <ManageAllSideMenu />
       <div className="grid grid-cols-6 bg-gray-100 h-full col-span-5 overflow-auto">
-        <div className=" col-span-5 w-full max-w-screen-lg mt-5 p-4 rounded-lg w-full ">
+        <div className=" col-span-5 w-full max-w-screen-lg mt-5 p-4  w-full ">
           <h1 className="text-xl mb-4">Account Information</h1>
-          <div className="flex flex-col border rounded-sm  p-3 items-center justify-start">
+          <div className="flex flex-col border mb-5  p-3 items-center justify-start">
             {isEditing ? (
               <div className="w-full max-w-md mt-4">
                 <form className="space-y-4" onSubmit={handleUpdateFormSubmit}>
@@ -191,7 +191,7 @@ const Account = () => {
           </div>
 
           <h1 className="text-xl mb-4">Change Password</h1>
-          <div className="flex flex-col border items-center justify-start px-5 rounded-sm  p-4 ">
+          <div className="flex flex-col border items-center justify-start px-5   p-4 ">
             <p className="text-sm text-red-200">{passwordChangeMessage}</p>
             <form
               className="grid grid-cols-1 gap-3"
